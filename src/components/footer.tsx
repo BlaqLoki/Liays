@@ -24,7 +24,7 @@ const columns = [
   {
     title: "Contact",
     links: [
-      { href: "mailto:hello@liays.ca", label: "hello@liays.ca" },
+      { href: "mailto:info@liays.ca", label: "info@liays.ca" },
       { href: "tel:+12045550119", label: "(204) 555-0119" },
       { href: "/contact", label: "Winnipeg, MB" },
     ],
