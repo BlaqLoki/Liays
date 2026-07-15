@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE_URL = "https://liaysinc.com";
+const BASE_URL = "https://liays.ca";
 
 const routes = [
   { path: "", priority: 1, changeFrequency: "weekly" as const },

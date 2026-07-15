@@ -9,7 +9,7 @@ type SpotlightCardProps = {
   children: ReactNode;
   className?: string;
   contentClassName?: string;
-  glow?: "accent" | "violet";
+  glow?: "accent" | "gold";
 };
 
 export function SpotlightCard({

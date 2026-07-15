@@ -37,15 +37,15 @@ const work = [
   {
     title: "EventSplit",
     tag: "SaaS · Event Finance Platform",
-    base: "#1c2a29",
+    base: "#221d12",
     variant: "dot-network" as const,
-    glow: "violet" as const,
+    glow: "gold" as const,
     href: "https://www.eventsplit.ca",
   },
   {
     title: "Ezirim Foundation",
     tag: "Non-Profit · Web Design & Build",
-    base: "#231c2a",
+    base: "#241a12",
     variant: "organic-bloom" as const,
     glow: "accent" as const,
     href: "https://www.ezirimfoundation.ca",
@@ -53,7 +53,7 @@ const work = [
   {
     title: "Prairie Realty",
     tag: "Real Estate · Web Design",
-    base: "#1c2b1f",
+    base: "#202a1a",
     variant: "horizon-grid" as const,
     glow: "accent" as const,
     href: "/work",
@@ -275,7 +275,7 @@ export default function Home() {
             event funding, and it still feels as fast as day one.&rdquo;
           </p>
           <div className="mt-8 flex items-center justify-center gap-3">
-            <div className="h-11 w-11 rounded-full bg-gradient-to-br from-accent to-violet" />
+            <div className="h-11 w-11 rounded-full bg-gradient-to-br from-accent to-gold" />
             <div className="text-left">
               <p className="text-sm font-semibold">Founder, EventSplit</p>
               <p className="text-xs text-white/50">eventsplit.ca</p>

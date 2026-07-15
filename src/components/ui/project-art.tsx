@@ -9,20 +9,20 @@ export type ProjectArtVariant =
 type ProjectArtProps = {
   variant: ProjectArtVariant;
   base: string;
-  glow: "accent" | "violet";
+  glow: "accent" | "gold";
   className?: string;
 };
 
-const GLOW_HEX: Record<"accent" | "violet", string> = {
-  accent: "#ff4d1c",
-  violet: "#5b4cff",
+const GLOW_HEX: Record<"accent" | "gold", string> = {
+  accent: "#d5642f",
+  gold: "#c79a3e",
 };
 
 function Motif({ variant }: { variant: ProjectArtVariant }) {
   switch (variant) {
     case "horizon-grid":
       return (
-        <g stroke="#f7f6f2" strokeOpacity={0.28} strokeWidth={1.5}>
+        <g stroke="#f5efe3" strokeOpacity={0.28} strokeWidth={1.5}>
           {[110, 150, 190, 230, 270, 310, 350].map((y, i) => (
             <line key={y} x1={40} y1={y} x2={40 + 60 + i * 32} y2={y} />
           ))}
@@ -31,7 +31,7 @@ function Motif({ variant }: { variant: ProjectArtVariant }) {
       );
     case "concentric-arcs":
       return (
-        <g fill="none" stroke="#f7f6f2" strokeOpacity={0.25} strokeWidth={1.5}>
+        <g fill="none" stroke="#f5efe3" strokeOpacity={0.25} strokeWidth={1.5}>
           {[40, 70, 100, 130, 160].map((r) => (
             <circle key={r} cx={200} cy={250} r={r} />
           ))}
@@ -42,7 +42,7 @@ function Motif({ variant }: { variant: ProjectArtVariant }) {
       );
     case "stacked-shelves":
       return (
-        <g fill="#f7f6f2" fillOpacity={0.18}>
+        <g fill="#f5efe3" fillOpacity={0.18}>
           <rect x={60} y={140} width={280} height={26} rx={6} />
           <rect x={60} y={190} width={200} height={26} rx={6} />
           <rect x={60} y={240} width={240} height={26} rx={6} fill="var(--glow)" fillOpacity={0.85} />
@@ -52,7 +52,7 @@ function Motif({ variant }: { variant: ProjectArtVariant }) {
       );
     case "directional-flow":
       return (
-        <g stroke="#f7f6f2" strokeOpacity={0.25} strokeWidth={10} strokeLinecap="round">
+        <g stroke="#f5efe3" strokeOpacity={0.25} strokeWidth={10} strokeLinecap="round">
           <line x1={40} y1={370} x2={200} y2={210} />
           <line x1={90} y1={400} x2={250} y2={240} />
           <line x1={140} y1={430} x2={340} y2={140} stroke="var(--glow)" strokeOpacity={0.85} strokeWidth={10} />
@@ -61,15 +61,15 @@ function Motif({ variant }: { variant: ProjectArtVariant }) {
     case "organic-bloom":
       return (
         <g fill="none">
-          <circle cx={165} cy={210} r={90} fill="#f7f6f2" fillOpacity={0.14} />
-          <circle cx={250} cy={290} r={70} fill="#f7f6f2" fillOpacity={0.14} />
+          <circle cx={165} cy={210} r={90} fill="#f5efe3" fillOpacity={0.14} />
+          <circle cx={250} cy={290} r={70} fill="#f5efe3" fillOpacity={0.14} />
           <circle cx={210} cy={250} r={60} fill="var(--glow)" fillOpacity={0.55} />
         </g>
       );
     case "dot-network":
     default:
       return (
-        <g fill="#f7f6f2" fillOpacity={0.3}>
+        <g fill="#f5efe3" fillOpacity={0.3}>
           {Array.from({ length: 6 }).map((_, row) =>
             Array.from({ length: 5 }).map((_, col) => {
               const isAccent = row === 2 && col === 2;

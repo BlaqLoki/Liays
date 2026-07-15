@@ -16,9 +16,9 @@ export default function Image() {
           justifyContent: "center",
           alignItems: "flex-start",
           padding: "90px",
-          backgroundColor: "#0a0a0c",
+          backgroundColor: "#12160f",
           backgroundImage:
-            "radial-gradient(circle at 82% 18%, rgba(91,76,255,0.35), transparent 55%), radial-gradient(circle at 8% 92%, rgba(255,77,28,0.28), transparent 50%)",
+            "radial-gradient(circle at 82% 18%, rgba(199,154,62,0.35), transparent 55%), radial-gradient(circle at 8% 92%, rgba(213,100,47,0.28), transparent 50%)",
         }}
       >
         <div
@@ -28,12 +28,12 @@ export default function Image() {
             gap: 10,
             fontSize: 40,
             fontWeight: 700,
-            color: "#f7f6f2",
+            color: "#f5efe3",
             letterSpacing: -1,
           }}
         >
           Liays
-          <span style={{ color: "#ff4d1c" }}>.</span>
+          <span style={{ color: "#d5642f" }}>.</span>
         </div>
         <div
           style={{
@@ -41,7 +41,7 @@ export default function Image() {
             marginTop: 36,
             fontSize: 66,
             fontWeight: 700,
-            color: "#f7f6f2",
+            color: "#f5efe3",
             lineHeight: 1.12,
             letterSpacing: -2,
             maxWidth: 920,
@@ -54,7 +54,7 @@ export default function Image() {
             display: "flex",
             marginTop: 28,
             fontSize: 28,
-            color: "rgba(247,246,242,0.65)",
+            color: "rgba(245,239,227,0.65)",
             maxWidth: 760,
           }}
         >

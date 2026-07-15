@@ -1,11 +1,11 @@
 import { useRef, useState, type MouseEvent } from "react";
 
-const GLOW_RGB: Record<"accent" | "violet", string> = {
-  accent: "255,77,28",
-  violet: "91,76,255",
+const GLOW_RGB: Record<"accent" | "gold", string> = {
+  accent: "213,100,47",
+  gold: "199,154,62",
 };
 
-export function useSpotlight<T extends HTMLElement>(glow: "accent" | "violet" = "accent") {
+export function useSpotlight<T extends HTMLElement>(glow: "accent" | "gold" = "accent") {
   const ref = useRef<T>(null);
   const [pos, setPos] = useState({ x: 50, y: 50 });
   const [active, setActive] = useState(false);

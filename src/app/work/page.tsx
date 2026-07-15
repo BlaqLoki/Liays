@@ -19,7 +19,7 @@ const projects: {
   result: string;
   base: string;
   variant: ProjectArtVariant;
-  glow: "accent" | "violet";
+  glow: "accent" | "gold";
   href?: string;
 }[] = [
   {
@@ -27,9 +27,9 @@ const projects: {
     tag: "SaaS · Event Finance Platform",
     service: "Web Design & Build",
     result: "Live platform now tracking $1.28M in funding across 89 events for 342+ organizers.",
-    base: "#1c2a29",
+    base: "#221d12",
     variant: "dot-network",
-    glow: "violet",
+    glow: "gold",
     href: "https://www.eventsplit.ca",
   },
   {
@@ -37,7 +37,7 @@ const projects: {
     tag: "Non-Profit · Web Design & Build",
     service: "Web Design & Build",
     result: "A full multi-page site — programs, partners, applications — live to support the Foundation's first cohort launch.",
-    base: "#231c2a",
+    base: "#241a12",
     variant: "organic-bloom",
     glow: "accent",
     href: "https://www.ezirimfoundation.ca",
@@ -47,7 +47,7 @@ const projects: {
     tag: "Real Estate",
     service: "Web Design & Build",
     result: "Lead form submissions up 64% in the first quarter post-launch.",
-    base: "#1c2b1f",
+    base: "#202a1a",
     variant: "horizon-grid",
     glow: "accent",
   },
@@ -56,16 +56,16 @@ const projects: {
     tag: "Healthcare",
     service: "Web + Online Booking",
     result: "Online booking now handles 40% of new patient intake.",
-    base: "#1c2230",
+    base: "#241f1a",
     variant: "concentric-arcs",
-    glow: "violet",
+    glow: "gold",
   },
   {
     title: "Forks Market Co.",
     tag: "Retail",
     service: "Notion Ops System",
     result: "Cut weekly inventory reconciliation time from 6 hours to 1.",
-    base: "#2a1c22",
+    base: "#2a1c16",
     variant: "stacked-shelves",
     glow: "accent",
   },
@@ -74,7 +74,7 @@ const projects: {
     tag: "Logistics",
     service: "Web Design & Build",
     result: "New site plus a dispatcher-facing Notion tracker.",
-    base: "#22261c",
+    base: "#262415",
     variant: "directional-flow",
     glow: "accent",
   },

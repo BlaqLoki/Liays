@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://liaysinc.com/sitemap.xml",
+    sitemap: "https://liays.ca/sitemap.xml",
   };
 }

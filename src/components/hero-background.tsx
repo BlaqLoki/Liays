@@ -15,7 +15,7 @@ export function HeroBackground() {
     <div className="pointer-events-none absolute inset-0 -z-10">
       <GLSLHills
         className="h-full w-full opacity-80"
-        color={[0.5, 0.47, 0.62]}
+        color={[0.58, 0.49, 0.38]}
         cameraZ={135}
         speed={0.4}
       />

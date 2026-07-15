@@ -20,7 +20,7 @@ const screens: ScreenConfig[] = [
   {
     name: "Prairie Realty",
     tag: "Real Estate",
-    gradient: "from-[#2a3d2f] to-[#182420]",
+    gradient: "from-[#202a1a] to-[#141d10]",
     position: "left-[1%] top-[58%] -translate-y-1/2",
     rotateY: 24,
     rotateX: 4,
@@ -29,7 +29,7 @@ const screens: ScreenConfig[] = [
   {
     name: "Bison Freight",
     tag: "Logistics",
-    gradient: "from-[#22261c] to-[#161810]",
+    gradient: "from-[#262415] to-[#181608]",
     position: "left-[9%] top-[22%]",
     rotateY: 18,
     rotateX: 2,
@@ -41,7 +41,7 @@ const screens: ScreenConfig[] = [
   {
     name: "Northgate Dental",
     tag: "Healthcare",
-    gradient: "from-[#1c2230] to-[#12151f]",
+    gradient: "from-[#241f1a] to-[#161310]",
     position: "right-[9%] top-[20%]",
     rotateY: -18,
     rotateX: 3,
@@ -53,7 +53,7 @@ const screens: ScreenConfig[] = [
   {
     name: "Forks Market Co.",
     tag: "Retail",
-    gradient: "from-[#2a1c22] to-[#181114]",
+    gradient: "from-[#2a1c16] to-[#18110c]",
     position: "right-[1%] top-[58%] -translate-y-1/2",
     rotateY: -24,
     rotateX: 4,

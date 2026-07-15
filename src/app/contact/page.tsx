@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 const details = [
-  { icon: Mail, label: "Email", value: "hello@liaysinc.com", href: "mailto:hello@liaysinc.com" },
+  { icon: Mail, label: "Email", value: "hello@liays.ca", href: "mailto:hello@liays.ca" },
   { icon: Phone, label: "Phone", value: "(204) 555-0119", href: "tel:+12045550119" },
   { icon: MapPin, label: "Location", value: "Winnipeg, Manitoba" },
   { icon: Clock, label: "Response time", value: "Within 1 business day" },

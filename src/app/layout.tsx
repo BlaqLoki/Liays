@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   title: "Liays Inc — Websites & Notion Systems for Winnipeg Businesses",
   description:
     "Liays Inc is a Winnipeg-based agency building elegant websites and running hands-on Notion training so your team can actually run on it.",
-  metadataBase: new URL("https://liaysinc.com"),
+  metadataBase: new URL("https://liays.ca"),
   openGraph: {
     title: "Liays Inc — Websites & Notion Systems",
     description:

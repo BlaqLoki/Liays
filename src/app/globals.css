@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --color-ink: #0a0a0c;
-  --color-ink-soft: #131317;
-  --color-paper: #f7f6f2;
-  --color-paper-dim: #ece9e2;
-  --color-fg-on-ink: #f7f6f2;
-  --color-fg-on-paper: #0a0a0c;
-  --color-muted-on-ink: #8d8d94;
-  --color-muted-on-paper: #5c5c62;
-  --color-accent: #ff4d1c;
-  --color-accent-soft: #ff8a5c;
-  --color-violet: #5b4cff;
-  --color-border-on-ink: rgba(247, 246, 242, 0.12);
-  --color-border-on-paper: rgba(10, 10, 12, 0.1);
+  --color-ink: #12160f;
+  --color-ink-soft: #1b2118;
+  --color-paper: #f5efe3;
+  --color-paper-dim: #eae0cc;
+  --color-fg-on-ink: #f5efe3;
+  --color-fg-on-paper: #12160f;
+  --color-muted-on-ink: #9a9c8f;
+  --color-muted-on-paper: #6b6552;
+  --color-accent: #d5642f;
+  --color-accent-soft: #e88656;
+  --color-gold: #c79a3e;
+  --color-border-on-ink: rgba(245, 239, 227, 0.12);
+  --color-border-on-paper: rgba(18, 22, 15, 0.1);
 
   --font-display: var(--font-space-grotesk);
   --font-body: var(--font-manrope);
@@ -26,7 +26,7 @@
   --color-paper-dim: var(--color-paper-dim);
   --color-accent: var(--color-accent);
   --color-accent-soft: var(--color-accent-soft);
-  --color-violet: var(--color-violet);
+  --color-gold: var(--color-gold);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
 }

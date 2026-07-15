@@ -6,7 +6,7 @@ import { useSpotlight } from "./use-spotlight";
 type SpotlightSurfaceProps = {
   children: ReactNode;
   className?: string;
-  glow?: "accent" | "violet";
+  glow?: "accent" | "gold";
 };
 
 export function SpotlightSurface({ children, className = "", glow = "accent" }: SpotlightSurfaceProps) {
