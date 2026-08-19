@@ -1,0 +1,47 @@
+/* Hallmark · tokens · Liays Inc
+ * Portable export of the design system as it actually ships today.
+ *
+ * These are the live values from src/app/globals.css — copied here so the
+ * system travels to the rebrand without re-deriving it. This file is NOT
+ * imported by the app; globals.css remains the single wired source of truth.
+ *
+ * Rebrand note: values are hex because that's what ships. Converting the
+ * colour tokens to OKLCH is worth doing during the rebrand — it makes tints
+ * and shades predictable to generate, which hex does not.
+ */
+
+:root {
+  /* ── Colour ─────────────────────────────────────────────────────────── */
+  /* Warm-tinted near-black. Deliberately not #000 — carries an olive cast. */
+  --color-ink: #12160f;
+  --color-ink-soft: #1b2118;
+
+  /* Warm cream. Deliberately not #fff. Used for inverted sections. */
+  --color-paper: #f5efe3;
+  --color-paper-dim: #eae0cc;
+
+  --color-fg-on-ink: #f5efe3;
+  --color-fg-on-paper: #12160f;
+  --color-muted-on-ink: #9a9c8f;
+  --color-muted-on-paper: #6b6552;
+
+  /* Terracotta. The single anchor hue — keep under ~5% of any viewport. */
+  --color-accent: #d5642f;
+  --color-accent-soft: #e88656;
+  --color-gold: #c79a3e;
+
+  --color-border-on-ink: rgba(245, 239, 227, 0.12);
+  --color-border-on-paper: rgba(18, 22, 15, 0.1);
+
+  /* ── Type ───────────────────────────────────────────────────────────── */
+  /* Display: Space Grotesk · Body: Manrope — loaded via next/font in layout.tsx */
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-manrope);
+
+  /* ── Motion ─────────────────────────────────────────────────────────── */
+  /* The project's Reveal component already uses this curve; named here so the
+   * rebrand keeps one easing rather than accumulating several. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-short: 200ms;
+  --dur-reveal: 700ms;
+}

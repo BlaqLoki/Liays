@@ -18,8 +18,8 @@ type ScreenConfig = {
 
 const screens: ScreenConfig[] = [
   {
-    name: "Prairie Realty",
-    tag: "Real Estate",
+    name: "Real Estate",
+    tag: "Listings & lead capture",
     gradient: "from-[#202a1a] to-[#141d10]",
     position: "left-[1%] top-[58%] -translate-y-1/2",
     rotateY: 24,
@@ -27,8 +27,8 @@ const screens: ScreenConfig[] = [
     duration: 7,
   },
   {
-    name: "Bison Freight",
-    tag: "Logistics",
+    name: "Logistics",
+    tag: "Dispatch tracker",
     gradient: "from-[#262415] to-[#181608]",
     position: "left-[9%] top-[22%]",
     rotateY: 18,
@@ -39,8 +39,8 @@ const screens: ScreenConfig[] = [
     delay: 0.6,
   },
   {
-    name: "Northgate Dental",
-    tag: "Healthcare",
+    name: "Dental Clinic",
+    tag: "Online booking",
     gradient: "from-[#241f1a] to-[#161310]",
     position: "right-[9%] top-[20%]",
     rotateY: -18,
@@ -51,8 +51,8 @@ const screens: ScreenConfig[] = [
     delay: 0.3,
   },
   {
-    name: "Forks Market Co.",
-    tag: "Retail",
+    name: "Retail & Hospitality",
+    tag: "Menus & inventory",
     gradient: "from-[#2a1c16] to-[#18110c]",
     position: "right-[1%] top-[58%] -translate-y-1/2",
     rotateY: -24,

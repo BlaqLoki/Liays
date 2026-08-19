@@ -39,7 +39,7 @@ export function MobileCtaBar() {
         >
           <Link
             href="/contact"
-            className="focus-ring flex h-12 w-full items-center justify-center gap-2 rounded-full bg-accent text-sm font-semibold text-ink active:scale-[0.98]"
+            className="focus-ring flex h-12 w-full items-center justify-center gap-2 whitespace-nowrap rounded-full bg-accent text-sm font-semibold text-ink active:scale-[0.98]"
           >
             Get my $999 quote
             <ArrowUpRight size={16} />

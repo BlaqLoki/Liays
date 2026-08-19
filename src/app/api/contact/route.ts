@@ -44,6 +44,17 @@ export async function POST(request: Request) {
       "[contact] RESEND_API_KEY or CONTACT_TO_EMAIL not set — submission was NOT emailed:",
       submission
     );
+
+    // In production a missing key means the lead is lost, so never report
+    // success — tell the visitor so they can reach us another way.
+    if (process.env.NODE_ENV === "production") {
+      return NextResponse.json(
+        { error: "Something went wrong sending your message." },
+        { status: 500 }
+      );
+    }
+
+    // Local dev without credentials: log above and let the flow through.
     return NextResponse.json({ ok: true });
   }
 

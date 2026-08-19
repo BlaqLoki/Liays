@@ -10,6 +10,8 @@ type MagneticButtonProps = {
   variant?: "accent" | "outline" | "ghost";
   className?: string;
   fullWidth?: boolean;
+  /** Opens in a new tab. Use for booking links so the site stays open behind. */
+  external?: boolean;
 };
 
 export function MagneticButton({
@@ -18,6 +20,7 @@ export function MagneticButton({
   variant = "accent",
   className = "",
   fullWidth = false,
+  external = false,
 }: MagneticButtonProps) {
   const ref = useRef<HTMLAnchorElement>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -36,7 +39,7 @@ export function MagneticButton({
   }
 
   const base =
-    "focus-ring relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold tracking-tight transition-all duration-200 cursor-pointer select-none active:scale-[0.96]";
+    "focus-ring relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold tracking-tight transition-[background-color,border-color,color,transform] duration-200 cursor-pointer select-none active:scale-[0.96]";
   const variants: Record<string, string> = {
     accent: "bg-accent text-ink hover:bg-accent-soft",
     outline: "border border-white/20 text-[var(--color-fg-on-ink)] hover:border-white/50",
@@ -52,6 +55,7 @@ export function MagneticButton({
       <Link
         ref={ref}
         href={href}
+        {...(external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         className={`${base} ${fullWidth ? "w-full" : ""} ${variants[variant]} ${className}`}

@@ -167,7 +167,7 @@ export default function ContactForm() {
             type="tel"
             autoComplete="tel"
             className="focus-ring w-full rounded-xl border border-white/15 bg-ink px-4 py-3 text-sm text-[var(--color-fg-on-ink)] placeholder:text-white/50"
-            placeholder="(204) 555-0119"
+            placeholder="(204) 000-0000"
           />
         </div>
 
@@ -213,7 +213,12 @@ export default function ContactForm() {
 
       {status === "error" && (
         <p role="alert" className="text-sm text-accent-soft">
-          {serverError}
+          {serverError}{" "}
+          You can also email us directly at{" "}
+          <a href="mailto:info@liays.ca" className="focus-ring font-semibold underline">
+            info@liays.ca
+          </a>
+          .
         </p>
       )}
 
