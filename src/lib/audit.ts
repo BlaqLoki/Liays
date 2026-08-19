@@ -138,13 +138,37 @@ export class QuotaError extends Error {
   }
 }
 
+/**
+ * Did Lighthouse actually run this audit AND find a problem?
+ *
+ * A missing audit is NOT a failure. `is-on-https` lives in the best-practices
+ * category, so if that category isn't requested the audit is absent — and
+ * `undefined === 1` is false, which once made this tool report "No HTTPS" about
+ * sites served over HTTPS. Saying a site is broken when it isn't is worse than
+ * saying nothing, especially when these findings get read aloud on a call.
+ */
+function auditFailed(audits: Record<string, unknown>, id: string): boolean {
+  const entry = audits?.[id] as
+    | { score?: unknown; scoreDisplayMode?: string }
+    | undefined;
+
+  if (!entry) return false;
+  if (entry.scoreDisplayMode === "notApplicable") return false;
+  if (entry.scoreDisplayMode === "informative") return false;
+  if (entry.scoreDisplayMode === "manual") return false;
+
+  return typeof entry.score === "number" && entry.score < 1;
+}
+
 /** Google's own mobile assessment. */
 async function runPageSpeed(url: string) {
   const key = process.env.PAGESPEED_API_KEY;
   const endpoint =
     "https://www.googleapis.com/pagespeedonline/v5/runPagespeed" +
     `?url=${encodeURIComponent(url)}&strategy=mobile` +
-    "&category=performance&category=seo&category=accessibility" +
+    // best-practices is what carries is-on-https. Without it that audit is
+    // simply absent from the response.
+    "&category=performance&category=seo&category=accessibility&category=best-practices" +
     (key ? `&key=${key}` : "");
 
   const res = await fetch(endpoint, { signal: AbortSignal.timeout(60000) });
@@ -165,8 +189,9 @@ async function runPageSpeed(url: string) {
       typeof audits["largest-contentful-paint"]?.numericValue === "number"
         ? +(audits["largest-contentful-paint"].numericValue / 1000).toFixed(1)
         : null,
-    isHttps: audits["is-on-https"]?.score === 1,
-    hasViewport: audits["viewport"]?.score === 1,
+    // Positively failed, not merely unmeasured.
+    httpsFailed: auditFailed(audits, "is-on-https"),
+    viewportFailed: auditFailed(audits, "viewport"),
   };
 }
 
@@ -214,7 +239,7 @@ export async function runAudit(url: string): Promise<AuditResult> {
     });
   }
 
-  if (!psi.hasViewport) {
+  if (psi.viewportFailed) {
     add({
       id: "viewport",
       severity: "critical",
@@ -224,7 +249,7 @@ export async function runAudit(url: string): Promise<AuditResult> {
     });
   }
 
-  if (!psi.isHttps) {
+  if (psi.httpsFailed) {
     add({
       id: "https",
       severity: "critical",
