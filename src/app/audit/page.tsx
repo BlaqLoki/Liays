@@ -2,6 +2,7 @@
  * Tool page. The instrument is the hero — no enrichment, no preamble above it.
  */
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { MagneticButton } from "@/components/ui/magnetic-button";
@@ -47,8 +48,17 @@ export default function AuditPage() {
               against it. You get the real numbers — the same ones Google uses
               when deciding where you rank.
             </p>
+            {/* Suspense is required: AuditTool reads ?site= via useSearchParams,
+                and without a boundary that would force the whole page to render
+                dynamically on every request. */}
             <div className="mt-10">
-              <AuditTool />
+              <Suspense
+                fallback={
+                  <div className="min-h-[52px] rounded-full border border-white/15 bg-ink" />
+                }
+              >
+                <AuditTool />
+              </Suspense>
             </div>
           </Reveal>
         </div>

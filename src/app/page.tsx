@@ -77,8 +77,8 @@ export default function Home() {
                 Book a free consult
                 <ArrowUpRight size={16} />
               </MagneticButton>
-              <MagneticButton href="/contact" variant="ghost" className="whitespace-nowrap">
-                Or send a message
+              <MagneticButton href="/audit" variant="ghost" className="whitespace-nowrap">
+                Check your site free
               </MagneticButton>
             </div>
           </Reveal>

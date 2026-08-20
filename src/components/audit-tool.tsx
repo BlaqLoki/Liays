@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, useCallback, useRef, type FormEvent } from "react";
+import { useSearchParams } from "next/navigation";
 import { ArrowUpRight, Loader2 } from "lucide-react";
 import type { AuditResult, Finding } from "@/lib/audit";
 import { BOOKING } from "@/lib/links";
@@ -21,9 +22,18 @@ export function AuditTool() {
   const [state, setState] = useState<State>({ status: "idle" });
   const [url, setUrl] = useState("");
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (!url.trim()) return;
+  /**
+   * A shared report is just ?site=theirdomain.ca — the audit re-runs rather than
+   * loading a stored result. Nothing to persist, and the link can never show a
+   * score that's months out of date.
+   */
+  const searchParams = useSearchParams();
+  const sharedSite = searchParams.get("site");
+  const autoRan = useRef(false);
+
+  const runAudit = useCallback(async (target: string) => {
+    const trimmed = target.trim();
+    if (!trimmed) return;
 
     setState({ status: "running" });
 
@@ -31,7 +41,7 @@ export function AuditTool() {
       const res = await fetch("/api/audit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url }),
+        body: JSON.stringify({ url: trimmed }),
       });
 
       const data = await res.json();
@@ -42,12 +52,32 @@ export function AuditTool() {
       }
 
       setState({ status: "done", result: data });
+
+      // Make the current report linkable without a navigation.
+      if (typeof window !== "undefined") {
+        const next = new URL(window.location.href);
+        next.searchParams.set("site", trimmed);
+        window.history.replaceState(null, "", next.toString());
+      }
     } catch {
       setState({
         status: "error",
         message: "Couldn't reach the checker. Check your connection and try again.",
       });
     }
+  }, []);
+
+  // Arriving on a shared link runs the check straight away.
+  useEffect(() => {
+    if (!sharedSite || autoRan.current) return;
+    autoRan.current = true;
+    setUrl(sharedSite);
+    runAudit(sharedSite);
+  }, [sharedSite, runAudit]);
+
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    runAudit(url);
   }
 
   return (
@@ -107,6 +137,40 @@ export function AuditTool() {
   );
 }
 
+/**
+ * Copies a link to this exact report.
+ *
+ * This is the outbound move: run the check on a prospect's site before you call
+ * them, copy the link, and send it. They open it, it re-runs against their own
+ * site, and the numbers come from Google rather than from you.
+ */
+function ShareReport({ site }: { site: string }) {
+  const [copied, setCopied] = useState(false);
+
+  async function copy() {
+    const link = `${window.location.origin}/audit?site=${encodeURIComponent(site)}`;
+    try {
+      await navigator.clipboard.writeText(link);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard blocked (insecure context, or the viewer declined). Select the
+      // link instead so it can still be copied by hand.
+      window.prompt("Copy this link:", link);
+    }
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={copy}
+      className="focus-ring mt-6 inline-flex min-h-[44px] cursor-pointer items-center gap-2 whitespace-nowrap text-sm font-semibold text-accent transition-colors hover:text-accent-soft"
+    >
+      {copied ? "Link copied" : "Copy link to this report"}
+    </button>
+  );
+}
+
 function Results({ result }: { result: AuditResult }) {
   const criticals = result.findings.filter((f) => f.severity === "critical");
 
@@ -123,6 +187,7 @@ function Results({ result }: { result: AuditResult }) {
           </p>
           <p className="mt-4 text-sm leading-relaxed text-white/60">{result.summary}</p>
           <p className="mt-2 break-all text-xs text-white/40">{result.url}</p>
+          <ShareReport site={result.url} />
         </div>
 
         <ul className="divide-y divide-white/10 border-y border-white/10">
