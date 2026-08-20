@@ -17,11 +17,28 @@ export type Finding = {
   detail: string;
 };
 
+/**
+ * Real-world measurements from Chrome's UX Report — actual visits by actual
+ * people over the last 28 days, not a simulation.
+ *
+ * This is the stronger number to quote, because a business owner can't dismiss
+ * it by loading their own site on a good phone. It only exists for sites with
+ * enough traffic to anonymise, so plenty of small local businesses have none —
+ * absence is normal and must never be presented as a problem.
+ */
+export type FieldData = {
+  /** Whether the sample is for this exact page or the whole domain. */
+  scope: "page" | "site";
+  lcpSeconds: number | null;
+  overall: "FAST" | "AVERAGE" | "SLOW" | null;
+};
+
 export type AuditResult = {
   url: string;
   score: number | null;
   seo: number | null;
   lcpSeconds: number | null;
+  field: FieldData | null;
   findings: Finding[];
   summary: string;
 };
@@ -181,6 +198,29 @@ async function runPageSpeed(url: string) {
   const audits = data?.lighthouseResult?.audits ?? {};
   const pct = (v: unknown) => (typeof v === "number" ? Math.round(v * 100) : null);
 
+  // Prefer the page's own field sample; fall back to the whole origin. Many
+  // small sites have neither, which is not a finding — just silence.
+  const fieldRaw = data?.loadingExperience?.metrics
+    ? { block: data.loadingExperience, scope: "page" as const }
+    : data?.originLoadingExperience?.metrics
+      ? { block: data.originLoadingExperience, scope: "site" as const }
+      : null;
+
+  const fieldLcpMs = fieldRaw?.block?.metrics?.LARGEST_CONTENTFUL_PAINT_MS?.percentile;
+  const fieldOverall = fieldRaw?.block?.overall_category;
+
+  const field = fieldRaw
+    ? {
+        scope: fieldRaw.scope,
+        lcpSeconds:
+          typeof fieldLcpMs === "number" ? +(fieldLcpMs / 1000).toFixed(1) : null,
+        overall:
+          fieldOverall === "FAST" || fieldOverall === "AVERAGE" || fieldOverall === "SLOW"
+            ? fieldOverall
+            : null,
+      }
+    : null;
+
   return {
     performance: pct(cats.performance?.score),
     seo: pct(cats.seo?.score),
@@ -189,6 +229,7 @@ async function runPageSpeed(url: string) {
       typeof audits["largest-contentful-paint"]?.numericValue === "number"
         ? +(audits["largest-contentful-paint"].numericValue / 1000).toFixed(1)
         : null,
+    field,
     // Positively failed, not merely unmeasured.
     httpsFailed: auditFailed(audits, "is-on-https"),
     viewportFailed: auditFailed(audits, "viewport"),
@@ -201,28 +242,35 @@ export async function runAudit(url: string): Promise<AuditResult> {
 
   const add = (f: Finding) => findings.push(f);
 
+  /* Lab results below are measured on a simulated mid-range phone over a
+     throttled connection. That is deliberately harsher than a new phone on
+     good wifi — and it is the number Google ranks on. Every finding says so,
+     because a business owner who loads their own site and finds it fast will
+     otherwise conclude the whole report is wrong. */
+  const LAB_CONDITIONS =
+    "Measured on a simulated mid-range phone over a slow connection — harsher than a new phone on wifi, and the conditions Google uses for ranking.";
+
   if (typeof psi.performance === "number") {
     if (psi.performance < 50) {
       add({
         id: "speed",
         severity: "critical",
         title: `Mobile speed: ${psi.performance}/100`,
-        detail:
-          "Google rates anything under 50 as poor. Slow pages lose visitors before they see anything, and speed is a ranking factor.",
+        detail: `Google rates anything under 50 as poor. ${LAB_CONDITIONS}`,
       });
     } else if (psi.performance < 90) {
       add({
         id: "speed",
         severity: "warning",
         title: `Mobile speed: ${psi.performance}/100`,
-        detail: "Google calls 90+ good. There's real room here.",
+        detail: `Google calls 90+ good, so there's real room here. ${LAB_CONDITIONS}`,
       });
     } else {
       add({
         id: "speed",
         severity: "good",
         title: `Mobile speed: ${psi.performance}/100`,
-        detail: "Google rates this as good. Nice.",
+        detail: "Google rates this as good — and that's under its harsher simulated conditions.",
       });
     }
   }
@@ -231,11 +279,30 @@ export async function runAudit(url: string): Promise<AuditResult> {
     add({
       id: "lcp",
       severity: psi.lcpSeconds > 4 ? "critical" : psi.lcpSeconds > 2.5 ? "warning" : "good",
-      title: `Main content appears in ${psi.lcpSeconds}s`,
+      title: `Main content takes ${psi.lcpSeconds}s on a throttled connection`,
       detail:
         psi.lcpSeconds > 2.5
-          ? "Google's threshold for a good experience is 2.5 seconds on mobile."
-          : "Comfortably inside Google's 2.5 second threshold.",
+          ? `Google's threshold is 2.5 seconds. On a fast phone it will feel quicker than this — but a customer on a weak signal gets closer to the slower figure, and it's what Google ranks on. ${LAB_CONDITIONS}`
+          : "Comfortably inside Google's 2.5 second threshold, even under simulated slow conditions.",
+    });
+  }
+
+  /* Field data outranks everything above when it exists: it's what real
+     visitors actually got, so it can't be waved away by loading the site on a
+     good phone. */
+  if (psi.field && typeof psi.field.lcpSeconds === "number") {
+    const secs = psi.field.lcpSeconds;
+    const scope =
+      psi.field.scope === "page" ? "this page" : "this site";
+    add({
+      id: "field",
+      severity: secs > 4 ? "critical" : secs > 2.5 ? "warning" : "good",
+      title: `Real visitors: ${secs}s to see the main content`,
+      detail:
+        `Measured by Google from actual Chrome visits to ${scope} over the last 28 days — not a simulation. ` +
+        (secs > 2.5
+          ? "This is what your customers are really experiencing."
+          : "Real-world performance is good."),
     });
   }
 
@@ -297,6 +364,7 @@ export async function runAudit(url: string): Promise<AuditResult> {
     score: psi.performance,
     seo: psi.seo,
     lcpSeconds: psi.lcpSeconds,
+    field: psi.field,
     findings,
     summary,
   };

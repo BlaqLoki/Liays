@@ -187,6 +187,12 @@ function Results({ result }: { result: AuditResult }) {
           </p>
           <p className="mt-4 text-sm leading-relaxed text-white/60">{result.summary}</p>
           <p className="mt-2 break-all text-xs text-white/40">{result.url}</p>
+          <p className="mt-4 border-t border-white/10 pt-4 text-xs leading-relaxed text-white/45">
+            Google scores mobile speed on a simulated mid-range phone over a slow
+            connection, so your site will feel faster than this on a good phone
+            and a strong signal. These are the conditions Google uses when it
+            decides where you rank.
+          </p>
           <ShareReport site={result.url} />
         </div>
 
