@@ -88,7 +88,7 @@ export default function Home() {
                 <ArrowUpRight size={16} />
               </MagneticButton>
               <MagneticButton href="/audit" variant="ghost" className="whitespace-nowrap">
-                Check your site free
+                Check your site&apos;s performance for free
               </MagneticButton>
             </div>
           </Reveal>
