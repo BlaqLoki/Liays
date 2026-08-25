@@ -3,11 +3,12 @@
  * cta: C1 outlined chip · enrichment: none (typography only) · anchor hue: terracotta
  */
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight, Check } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import { ProjectArt } from "@/components/ui/project-art";
 import { HeroBackground } from "@/components/hero-background";
+import { CountUp } from "@/components/ui/count-up";
 import { BOOKING } from "@/lib/links";
 
 const priceLedger = [
@@ -30,21 +31,21 @@ const notionDeliverables = [
   "30 days of async support after every session",
 ];
 
+/* Same captures as /work, so the teaser and the full page show the same thing.
+   Re-capture both together when a site changes. */
 const work = [
   {
     title: "EventSplit",
     tag: "SaaS · Event Finance Platform",
-    base: "#221d12",
-    variant: "dot-network" as const,
-    glow: "gold" as const,
+    image: "/work/eventsplit.webp",
+    imageAlt: "The EventSplit homepage",
     href: "https://www.eventsplit.ca",
   },
   {
     title: "Ezirim Foundation",
     tag: "Non-Profit · Web Design & Build",
-    base: "#241a12",
-    variant: "organic-bloom" as const,
-    glow: "accent" as const,
+    image: "/work/ezirim.webp",
+    imageAlt: "The Ezirim Foundation homepage",
     href: "https://www.ezirimfoundation.ca",
   },
 ];
@@ -99,19 +100,20 @@ export default function Home() {
                 What it costs
               </p>
               <dl className="mt-6 divide-y divide-white/10">
-                {priceLedger.map((row) => (
-                  <div
-                    key={row.service}
-                    className="flex items-baseline justify-between gap-6 py-4"
-                  >
-                    <dt>
-                      <span className="block text-sm font-semibold">{row.service}</span>
-                      <span className="mt-0.5 block text-xs text-white/45">{row.note}</span>
-                    </dt>
-                    <dd className="font-display shrink-0 text-xl font-bold tabular-nums tracking-tight">
-                      {row.price}
-                    </dd>
-                  </div>
+                {priceLedger.map((row, i) => (
+                  // Staggered so the ledger reads top to bottom rather than
+                  // arriving as one block — the eye follows the prices down.
+                  <Reveal key={row.service} delay={0.25 + i * 0.12} y={12}>
+                    <div className="flex items-baseline justify-between gap-6 py-4">
+                      <dt>
+                        <span className="block text-sm font-semibold">{row.service}</span>
+                        <span className="mt-0.5 block text-xs text-white/45">{row.note}</span>
+                      </dt>
+                      <dd className="font-display shrink-0 text-xl font-bold tracking-tight">
+                        <CountUp value={row.price} />
+                      </dd>
+                    </div>
+                  </Reveal>
                 ))}
               </dl>
               <p className="mt-6 text-xs leading-relaxed text-white/45">
@@ -240,13 +242,17 @@ export default function Home() {
                   href={item.href}
                   className="focus-ring group block"
                 >
-                  <div className="relative aspect-[5/4] overflow-hidden rounded-xl">
-                    <ProjectArt
-                      variant={item.variant}
-                      base={item.base}
-                      glow={item.glow}
-                      className="absolute inset-0 h-full w-full"
+                  {/* 16:10 matches the capture, so the whole shot fits and the
+                      teaser frames each site the same way /work does. */}
+                  <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-white/10">
+                    <Image
+                      src={item.image}
+                      alt={item.imageAlt}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
+                      className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
                     />
+                    <div className="absolute inset-0 bg-ink/25 transition-opacity duration-300 group-hover:opacity-0" />
                   </div>
                   <p className="font-display mt-4 text-lg font-semibold tracking-tight transition-colors group-hover:text-accent">
                     {item.title}
