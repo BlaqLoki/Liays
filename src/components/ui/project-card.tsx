@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, type MouseEvent } from "react";
-import Image from "next/image";
+import { HoverReel } from "@/components/ui/hover-reel";
 import Link from "next/link";
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
@@ -32,7 +32,8 @@ type ProjectCardProps = {
   title: string;
   tag: string;
   blurb: string;
-  imageSrc: string;
+  /** Basename in /work — poster, webm and mp4 all derive from it. */
+  slug: string;
   imageAlt: string;
   href: string;
   /** Above-the-fold cards should not lazy-load; it costs LCP. */
@@ -43,7 +44,7 @@ export function ProjectCard({
   title,
   tag,
   blurb,
-  imageSrc,
+  slug,
   imageAlt,
   href,
   priority = false,
@@ -95,14 +96,16 @@ export function ProjectCard({
         rel="noopener noreferrer"
         className="focus-ring block rounded-xl"
       >
-        <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-white/10 bg-ink-soft shadow-lg transition-shadow duration-300 group-hover:shadow-2xl">
-          <Image
-            src={imageSrc}
+        {/* 2:1, matching the capture. The clips are 1900x920 and cropping
+            them into the old 16:10 frame cut ~22% off each side, which took the
+            nav and the CTA with it. */}
+        <div className="relative aspect-[2/1] overflow-hidden rounded-xl border border-white/10 bg-ink-soft shadow-lg transition-shadow duration-300 group-hover:shadow-2xl">
+          <HoverReel
+            slug={slug}
             alt={imageAlt}
-            fill
             priority={priority}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 620px"
-            className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+            className="transition-transform duration-500 group-hover:scale-[1.03]"
           />
 
           {/*

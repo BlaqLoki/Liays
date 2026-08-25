@@ -24,7 +24,7 @@ const projects: {
   title: string;
   tag: string;
   result: string;
-  image: string;
+  slug: string;
   imageAlt: string;
   href: string;
 }[] = [
@@ -33,7 +33,7 @@ const projects: {
     tag: "E-commerce · Web Design & Build",
     result:
       "A single-product storefront for a Winnipeg chin chin maker — scroll-driven product animation, Stripe checkout, and pickup scheduling, built and launched on her own domain.",
-    image: "/work/onuwas.webp",
+    slug: "onuwas",
     imageAlt: "The Onuwa's Kitchen homepage, showing two bags of chin chin",
     href: "https://www.onuchinchinsnacks.ca",
   },
@@ -42,7 +42,7 @@ const projects: {
     tag: "SaaS · Event Finance Platform",
     result:
       "A full event-finance platform, designed and shipped end to end — collaborator offers, e-signed agreements, expense tracking, sponsorships, and automated profit distribution.",
-    image: "/work/eventsplit.webp",
+    slug: "eventsplit",
     imageAlt: "The EventSplit homepage, showing the event finance dashboard",
     href: "https://www.eventsplit.ca",
   },
@@ -51,7 +51,7 @@ const projects: {
     tag: "Non-Profit · Web Design & Build",
     result:
       "A full multi-page site — programs, partners, applications — live to support the Foundation's first cohort launch.",
-    image: "/work/ezirim.webp",
+    slug: "ezirim",
     imageAlt: "The Ezirim Foundation homepage",
     href: "https://www.ezirimfoundation.ca",
   },
@@ -116,7 +116,7 @@ export default function WorkPage() {
                 title={p.title}
                 tag={p.tag}
                 blurb={p.result}
-                imageSrc={p.image}
+                slug={p.slug}
                 imageAlt={p.imageAlt}
                 href={p.href}
                 priority={i === 0}

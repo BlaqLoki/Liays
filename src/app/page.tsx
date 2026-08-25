@@ -3,11 +3,11 @@
  * cta: C1 outlined chip · enrichment: none (typography only) · anchor hue: terracotta
  */
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowUpRight, Check } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { HeroBackground } from "@/components/hero-background";
+import { HoverReel } from "@/components/ui/hover-reel";
 import { CountUp } from "@/components/ui/count-up";
 import { BOOKING } from "@/lib/links";
 
@@ -37,14 +37,14 @@ const work = [
   {
     title: "EventSplit",
     tag: "SaaS · Event Finance Platform",
-    image: "/work/eventsplit.webp",
+    slug: "eventsplit",
     imageAlt: "The EventSplit homepage",
     href: "https://www.eventsplit.ca",
   },
   {
     title: "Ezirim Foundation",
     tag: "Non-Profit · Web Design & Build",
-    image: "/work/ezirim.webp",
+    slug: "ezirim",
     imageAlt: "The Ezirim Foundation homepage",
     href: "https://www.ezirimfoundation.ca",
   },
@@ -246,17 +246,17 @@ export default function Home() {
                   href={item.href}
                   className="focus-ring group block"
                 >
-                  {/* 16:10 matches the capture, so the whole shot fits and the
-                      teaser frames each site the same way /work does. */}
-                  <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-white/10">
-                    <Image
-                      src={item.image}
+                  {/* 2:1 matches the recordings, so the teaser frames each
+                      site exactly the way /work does. */}
+                  <div className="relative aspect-[2/1] overflow-hidden rounded-xl border border-white/10">
+                    <HoverReel
+                      slug={item.slug}
                       alt={item.imageAlt}
-                      fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
-                      className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
+                      className="transition-transform duration-500 group-hover:scale-[1.04]"
                     />
-                    <div className="absolute inset-0 bg-ink/25 transition-opacity duration-300 group-hover:opacity-0" />
+                    {/* Lifts on hover, so the reel plays at full contrast. */}
+                    <div className="pointer-events-none absolute inset-0 bg-ink/25 transition-opacity duration-300 group-hover:opacity-0" />
                   </div>
                   <p className="font-display mt-4 text-lg font-semibold tracking-tight transition-colors group-hover:text-accent">
                     {item.title}
