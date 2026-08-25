@@ -7,6 +7,7 @@ import { ArrowUpRight, Check } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { ProjectArt } from "@/components/ui/project-art";
+import { HeroBackground } from "@/components/hero-background";
 import { BOOKING } from "@/lib/links";
 
 const priceLedger = [
@@ -51,8 +52,16 @@ const work = [
 export default function Home() {
   return (
     <>
-      {/* Hero — diptych: positioning left, price ledger right */}
-      <section className="px-6 pb-20 pt-16 lg:px-10 lg:pb-28 lg:pt-24">
+      {/* Hero — diptych: positioning left, price ledger right.
+
+          `relative` so the backdrop pins to this section rather than the
+          viewport. Deliberately NOT `isolate`: adding it blanked the entire
+          hero in Chrome — headline, ledger, buttons, all of it — and it did so
+          with the backdrop removed too, so the stacking context alone was
+          enough. `relative` is all the positioning needs; the isolate bought
+          nothing and cost the whole section. */}
+      <section className="relative px-6 pb-20 pt-16 lg:px-10 lg:pb-28 lg:pt-24">
+        <HeroBackground />
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[7fr_5fr] lg:items-end lg:gap-20">
           <Reveal>
             <p className="text-sm font-semibold text-accent">

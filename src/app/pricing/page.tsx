@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { ArrowUpRight, Check } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { MagneticButton } from "@/components/ui/magnetic-button";
+import { SpotlightRow } from "@/components/ui/spotlight-row";
 import { BOOKING } from "@/lib/links";
 
 export const metadata: Metadata = {
@@ -152,13 +153,16 @@ function TierRows({ tiers, onPaper = false }: { tiers: Tier[]; onPaper?: boolean
     <div className={`divide-y ${divide} border-y ${rule}`}>
       {tiers.map((tier, i) => (
         <Reveal key={tier.name} delay={i * 0.06}>
+          <SpotlightRow onPaper={onPaper}>
           <div className="grid gap-6 py-8 lg:grid-cols-[5fr_7fr] lg:gap-16">
             <div>
               <div className="flex items-baseline justify-between gap-4">
-                <h3 className="font-display text-xl font-semibold tracking-tight">
+                <h3 className="font-display text-xl font-semibold tracking-tight transition-colors duration-300 group-hover:text-accent">
                   {tier.name}
                 </h3>
-                <span className="font-display shrink-0 text-2xl font-bold tabular-nums tracking-tight">
+                {/* Leans a hair toward the reader on hover. Transform only —
+                    animating font-size would reflow the row underneath it. */}
+                <span className="font-display shrink-0 origin-right text-2xl font-bold tabular-nums tracking-tight transition-transform duration-300 ease-out group-hover:scale-[1.06]">
                   {tier.price}
                 </span>
               </div>
@@ -174,12 +178,16 @@ function TierRows({ tiers, onPaper = false }: { tiers: Tier[]; onPaper?: boolean
             <ul className="grid gap-2.5 sm:grid-cols-2 lg:content-start">
               {tier.features.map((f) => (
                 <li key={f} className="flex items-start gap-2.5">
-                  <Check size={15} className="mt-1 shrink-0 text-accent" />
+                  <Check
+                    size={15}
+                    className="mt-1 shrink-0 text-accent transition-transform duration-300 ease-out group-hover:scale-110"
+                  />
                   <span className={`text-sm leading-relaxed ${body}`}>{f}</span>
                 </li>
               ))}
             </ul>
           </div>
+          </SpotlightRow>
         </Reveal>
       ))}
     </div>
