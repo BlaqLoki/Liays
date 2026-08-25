@@ -54,7 +54,9 @@ export default function Footer() {
               which reads as unfinished. Add them back with real URLs. */}
         </div>
 
-        <p className="mt-10 text-xs text-white/40">
+        {/* /55, not /40. At 12px this needs 4.5:1 and /40 measured 3.83 — the
+            line is legal boilerplate, but "quiet" cannot mean "unreadable". */}
+        <p className="mt-10 text-xs text-white/55">
           © {new Date().getFullYear()} Liays Inc.
         </p>
       </div>

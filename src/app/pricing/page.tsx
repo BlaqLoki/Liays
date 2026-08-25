@@ -146,8 +146,21 @@ function TierRows({ tiers, onPaper = false }: { tiers: Tier[]; onPaper?: boolean
   const rule = onPaper ? "border-black/10" : "border-white/10";
   const divide = onPaper ? "divide-black/10" : "divide-white/10";
   const muted = onPaper ? "text-black/60" : "text-white/55";
-  const subtle = onPaper ? "text-black/45" : "text-white/45";
+  /* /60 on paper, not /45. Black at 45% over cream is only 3.29:1 and this is
+     12px, so it needed 4.5. It now matches `muted`, and the hierarchy between
+     them is carried by size and alignment instead — at 12px on a light ground
+     there is not enough room between "readable" and "fainter than the body"
+     for opacity to do that job as well. */
+  const subtle = onPaper ? "text-black/60" : "text-white/45";
   const body = onPaper ? "text-black/70" : "text-white/70";
+  /* Terracotta only clears AA against ink. The care plans render onPaper, so
+     the hover colour and the note have to drop to the darker variant there —
+     a hover state is still text, and a contrast audit of the resting page
+     never sees it. */
+  const accent = onPaper ? "text-accent-on-paper" : "text-accent";
+  const accentHover = onPaper
+    ? "group-hover:text-accent-on-paper"
+    : "group-hover:text-accent";
 
   return (
     <div className={`divide-y ${divide} border-y ${rule}`}>
@@ -157,7 +170,7 @@ function TierRows({ tiers, onPaper = false }: { tiers: Tier[]; onPaper?: boolean
           <div className="grid gap-6 py-8 lg:grid-cols-[5fr_7fr] lg:gap-16">
             <div>
               <div className="flex items-baseline justify-between gap-4">
-                <h3 className="font-display text-xl font-semibold tracking-tight transition-colors duration-300 group-hover:text-accent">
+                <h3 className={`font-display text-xl font-semibold tracking-tight transition-colors duration-300 ${accentHover}`}>
                   {tier.name}
                 </h3>
                 {/* Leans a hair toward the reader on hover. Transform only —
@@ -168,7 +181,7 @@ function TierRows({ tiers, onPaper = false }: { tiers: Tier[]; onPaper?: boolean
               </div>
               <p className={`mt-1 text-right text-xs ${subtle}`}>{tier.unit}</p>
               {tier.note && (
-                <p className="mt-2 text-xs font-semibold text-accent">{tier.note}</p>
+                <p className={`mt-2 text-xs font-semibold ${accent}`}>{tier.note}</p>
               )}
               <p className={`mt-4 max-w-sm text-sm leading-relaxed ${muted}`}>
                 {tier.copy}

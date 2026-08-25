@@ -11,6 +11,11 @@
   --color-muted-on-paper: #6b6552;
   --color-accent: #d5642f;
   --color-accent-soft: #e88656;
+  /* Terracotta is a mid-tone: it clears AA against ink but only reaches 3.2:1
+     on paper, so small accent text on the light sections failed. This is the
+     same hue carried far enough down to pass, and it follows the -on-ink /
+     -on-paper convention the muted and border tokens already use. */
+  --color-accent-on-paper: #a8471d;
   --color-gold: #c79a3e;
   --color-border-on-ink: rgba(245, 239, 227, 0.12);
   --color-border-on-paper: rgba(18, 22, 15, 0.1);
@@ -26,6 +31,7 @@
   --color-paper-dim: var(--color-paper-dim);
   --color-accent: var(--color-accent);
   --color-accent-soft: var(--color-accent-soft);
+  --color-accent-on-paper: var(--color-accent-on-paper);
   --color-gold: var(--color-gold);
   --font-display: var(--font-display);
   --font-body: var(--font-body);

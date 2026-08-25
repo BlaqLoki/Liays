@@ -131,7 +131,7 @@ export default function ServicesPage() {
             <ol className="divide-y divide-white/10 border-y border-white/10">
               {process.map((step, i) => (
                 <li key={step.title} className="flex gap-5 py-5">
-                  <span className="font-display shrink-0 text-sm font-bold tabular-nums text-white/35">
+                  <span className="font-display shrink-0 text-sm font-bold tabular-nums text-white/55">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div>
@@ -181,7 +181,10 @@ export default function ServicesPage() {
       >
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">
           <Reveal className="lg:order-2">
-            <p className="font-display text-sm font-bold tabular-nums text-accent">02</p>
+            {/* Light section, so the darker accent — see globals.css. */}
+            <p className="font-display text-sm font-bold tabular-nums text-accent-on-paper">
+              02
+            </p>
             <h2 className="font-display mt-4 text-balance text-3xl font-bold tracking-tight sm:text-4xl">
               The tools you already pay for, finally pulling their weight.
             </h2>

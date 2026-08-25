@@ -114,7 +114,7 @@ export function AuditTool() {
         </button>
       </form>
 
-      <p className="mt-3 text-xs text-white/40">
+      <p className="mt-3 text-xs text-white/55">
         Free, no email required. Takes about 20 seconds — we run Google&apos;s own
         Lighthouse test against your site.
       </p>
@@ -186,7 +186,7 @@ function Results({ result }: { result: AuditResult }) {
             <span className="text-2xl text-white/40">/100</span>
           </p>
           <p className="mt-4 text-sm leading-relaxed text-white/60">{result.summary}</p>
-          <p className="mt-2 break-all text-xs text-white/40">{result.url}</p>
+          <p className="mt-2 break-all text-xs text-white/55">{result.url}</p>
           <p className="mt-4 border-t border-white/10 pt-4 text-xs leading-relaxed text-white/45">
             Google scores mobile speed on a simulated mid-range phone over a slow
             connection, so your site will feel faster than this on a good phone

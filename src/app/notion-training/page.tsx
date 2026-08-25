@@ -161,7 +161,7 @@ export default function NotionTrainingPage() {
             <ol className="divide-y divide-black/10 border-y border-black/10">
               {agenda.map((item, i) => (
                 <li key={item} className="flex gap-5 py-4">
-                  <span className="font-display shrink-0 text-sm font-bold tabular-nums text-black/35">
+                  <span className="font-display shrink-0 text-sm font-bold tabular-nums text-black/60">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="text-sm leading-relaxed text-black/70">{item}</span>

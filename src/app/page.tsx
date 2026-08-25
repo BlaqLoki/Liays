@@ -164,7 +164,11 @@ export default function Home() {
       <section className="bg-paper px-6 py-20 text-ink lg:px-10 lg:py-28">
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">
           <Reveal className="lg:order-2">
-            <p className="font-display text-sm font-bold tabular-nums text-accent">02</p>
+            {/* -on-paper, unlike 01 above it: this section is the light one,
+                and plain accent measures 3.22:1 here against 4.5 required. */}
+            <p className="font-display text-sm font-bold tabular-nums text-accent-on-paper">
+              02
+            </p>
             <h2 className="font-display mt-4 text-balance text-3xl font-bold tracking-tight sm:text-4xl">
               Your team already pays for Notion. Let&apos;s make them love using it.
             </h2>
