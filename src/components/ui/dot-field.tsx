@@ -12,9 +12,9 @@ import { useEffect, useRef } from "react";
  * chasing it — the grid stays legible as a grid.
  *
  * Canvas 2D rather than WebGL. This is a thousand-odd line segments per frame,
- * which 2D handles comfortably, and it avoids pulling three.js into the
- * critical path for a background effect. (The repo still carries three for
- * `glsl-hills.tsx`, which nothing renders — worth removing separately.)
+ * which 2D handles comfortably, and it avoids pulling three.js back in for a
+ * background effect — the shader this replaced was the only thing that needed
+ * it, and both are now gone.
  *
  * Three things it does not do:
  *

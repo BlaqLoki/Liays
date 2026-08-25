@@ -1,6 +1,6 @@
 /* Hallmark · genre: editorial · macrostructure: Portfolio Grid · design-system: design.md · designed-as-app
- * Three real projects, shown as screenshots of the live sites rather than the
- * abstract ProjectArt that stood in while there was nothing worth photographing.
+ * Three real projects, shown as screenshots of the live sites. Generated
+ * abstract art stood in here while there was nothing worth photographing.
  */
 import type { Metadata } from "next";
 import Link from "next/link";
