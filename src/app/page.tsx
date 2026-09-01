@@ -11,17 +11,16 @@ import { HoverReel } from "@/components/ui/hover-reel";
 import { ScrollExpandHero } from "@/components/ui/scroll-expand-hero";
 import { BookACall } from "@/components/ui/book-a-call";
 import { WorkShowcase } from "@/components/ui/work-showcase";
-import { ledger } from "@/lib/offers";
+import { ledger, tagline, website, foundingSlotsLeft } from "@/lib/offers";
 import { CountUp } from "@/components/ui/count-up";
 import { BOOKING } from "@/lib/links";
 
 
-const webDeliverables = [
-  "Mobile-responsive, on-brand design",
-  "Copy and layout built to convert, not just to look good",
-  "Live in 2–3 weeks, not 2–3 months",
-  "You own everything — no rental, no lock-in",
-];
+/* Reads from the offer rather than restating it. This list used to promise
+   "live in 2–3 weeks" on the same page that sells a five-day build — the kind
+   of contradiction a prospect notices and a founder never does, because nobody
+   reads their own homepage top to bottom. */
+const webDeliverables = website.includes.slice(0, 5);
 
 const notionDeliverables = [
   "On-site or remote team workshops (half-day or full-day)",
@@ -56,7 +55,7 @@ export default function Home() {
           positioning and the price ledger below still do the explaining. */}
       <ScrollExpandHero
         title="Endless Possibilities"
-        eyebrow="Liays Inc · Winnipeg"
+        eyebrow={tagline}
         hint="Scroll"
         bgImageSrc="/hero/winnipeg.webp"
         bgAlt="Downtown Winnipeg at golden hour, the Museum for Human Rights and the Esplanade Riel in the foreground"
@@ -80,7 +79,8 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[7fr_5fr] lg:items-end lg:gap-20">
           <Reveal>
             <p className="text-sm font-semibold text-accent">
-              Winnipeg · now booking founding clients
+              Winnipeg · {foundingSlotsLeft} founding{" "}
+              {foundingSlotsLeft === 1 ? "slot" : "slots"} left at {website.price}
             </p>
             <h1 className="font-display mt-6 text-balance text-5xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
               We build it.
@@ -150,13 +150,13 @@ export default function Home() {
               Websites that look established on day one.
             </h2>
             <p className="mt-6 max-w-lg text-base leading-relaxed text-white/60">
-              Brand-new builds or full redesigns. Fast, elegant, and shaped
-              around the one thing you need the page to do — get the phone to
-              ring, fill the booking calendar, take the order.
+              One page, {website.price}, live five business days after you send
+              us the material. Built around the one thing the page has to do —
+              get the phone to ring.
             </p>
             <div className="mt-8">
               <MagneticButton href="/services#web-design" variant="outline">
-                Website design &amp; build
+                See what&apos;s included
                 <ArrowUpRight size={16} />
               </MagneticButton>
             </div>
@@ -289,10 +289,10 @@ export default function Home() {
           reader has already had the offer explained by the time they arrive. */}
       <BookACall
         eyebrow="Book a call"
-        title="Tell us what the site needs to do. We'll quote it in a day."
-        description="A free 20-minute consult. We'll look at what you have, tell you what we'd change, and give you a number — whether or not you hire us."
+        title={`${foundingSlotsLeft} founding slots at ${website.price}. Then it's ${website.priceAfter}.`}
+        description="A free 20-minute consult. We'll look at what you have, tell you what we'd change, and give you a number — whether or not you hire us. Live in five business days once you send the material."
         primaryHref={BOOKING.projectCall}
-        primaryLabel="Start a project"
+        primaryLabel="Claim a founding slot"
         secondaryHref="/pricing"
         secondaryLabel="See what it costs"
         primaryImage="/hero/placeholder-a.webp"

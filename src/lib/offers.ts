@@ -17,6 +17,13 @@
    keep working when this drops to 1. */
 export const foundingSlotsLeft: number = 3;
 
+/**
+ * The line the whole business hangs on. Kept here rather than typed into six
+ * templates, because a tagline that appears differently on different pages
+ * stops being a tagline and becomes six pieces of copy.
+ */
+export const tagline = "Smarter Systems. Stronger Business.";
+
 export type Offer = {
   id: string;
   name: string;

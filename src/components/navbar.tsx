@@ -11,12 +11,17 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 
+/* Ordered by what a cold visitor needs, not by org chart. "Websites" beats
+   "Services" because it names the thing they came for. Pricing sits second
+   because publishing it is the differentiator, and burying it five links deep
+   wastes the only thing competitors won't copy. Training drops below Work — a
+   real offer, but not what most first-time visitors are here to buy. */
 const links = [
-  { href: "/services", label: "Services" },
-  { href: "/notion-training", label: "Notion Training" },
-  { href: "/work", label: "Work" },
-  { href: "/about", label: "About" },
+  { href: "/services", label: "Websites" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/work", label: "Work" },
+  { href: "/notion-training", label: "Training" },
+  { href: "/about", label: "About" },
 ];
 
 export default function Navbar() {

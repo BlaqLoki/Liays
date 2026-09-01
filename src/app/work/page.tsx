@@ -8,12 +8,13 @@ import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { BOOKING } from "@/lib/links";
+import { website, foundingSlotsLeft } from "@/lib/offers";
 import { ProjectCard } from "@/components/ui/project-card";
 
 export const metadata: Metadata = {
   title: "Work — Liays Inc",
   description:
-    "Websites and Notion systems built for Winnipeg businesses and beyond.",
+    "Sites we designed, built and still run — a Winnipeg chin chin storefront, an event-finance platform, and a non-profit.",
 };
 
 /* The screenshots in /public/work are captures of the live sites at 1440×900,
@@ -85,13 +86,15 @@ export default function WorkPage() {
                 maintain.
               </p>
               <p className="mt-4 text-sm leading-relaxed text-white/60">
-                We&apos;re taking on founding clients now, at founding rates.
+                The next {foundingSlotsLeft} builds go out at {website.price} — a
+                one-page site, live five business days after you send us the
+                material. After that it&apos;s {website.priceAfter}.
               </p>
               <Link
                 href="/pricing"
                 className="focus-ring mt-6 inline-flex items-center gap-1.5 whitespace-nowrap py-3 text-sm font-semibold text-accent transition-colors hover:text-accent-soft"
               >
-                See founding rates
+                See every price
                 <ArrowUpRight size={15} />
               </Link>
             </div>

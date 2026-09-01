@@ -91,8 +91,15 @@ export default function ServicesPage() {
           </Reveal>
 
           <Reveal delay={0.12}>
+            {/* Real imagery, not a dashed placeholder. A visitor deciding
+                whether to trust a new studio with $995 should not be looking at
+                a box that says a photo is coming. Swap in a client shot the day
+                there is one — the component takes a src and nothing else
+                changes. */}
             <ImageSlot
-              label="Finished site on a phone, in someone's hand"
+              src="/hero/city-tall.webp"
+              alt="Downtown Winnipeg from the air"
+              label="Winnipeg"
               ratio="4/5"
               sizes="(max-width: 1024px) 100vw, 46vw"
             />
@@ -173,7 +180,9 @@ export default function ServicesPage() {
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[5fr_6fr] lg:items-center lg:gap-16">
           <Reveal>
             <ImageSlot
-              label="Client at work — trade, salon or contractor"
+              src="/hero/city-tall-2.webp"
+              alt="The Winnipeg riverfront"
+              label="Winnipeg riverfront"
               ratio="3/4"
               sizes="(max-width: 1024px) 100vw, 40vw"
             />

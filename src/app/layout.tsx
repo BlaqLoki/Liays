@@ -19,17 +19,26 @@ const manrope = Manrope({
   weight: ["400", "500", "600", "700"],
 });
 
+/*
+ * The title is the Google result and the browser tab, so it leads with the
+ * offer rather than the category. "Websites & Notion Systems" described what we
+ * do; "$995, live in five days" is the thing someone searching for a website in
+ * Winnipeg is actually deciding about. Under 60 characters so Google doesn't
+ * truncate it mid-offer.
+ */
 export const metadata: Metadata = {
-  title: "Liays Inc — Websites & Notion Systems for Winnipeg Businesses",
+  title: "Liays Inc — Winnipeg Websites, Live in Five Days",
   description:
-    "Liays Inc is a Winnipeg-based agency building elegant websites and running hands-on Notion training so your team can actually run on it.",
+    "Smarter Systems. Stronger Business. A one-page website that helps customers find, trust and contact you — $995, live in five business days. Winnipeg.",
   metadataBase: new URL("https://liays.ca"),
   openGraph: {
-    title: "Liays Inc — Websites & Notion Systems",
+    title: "Liays Inc — Winnipeg Websites, Live in Five Days",
     description:
-      "Winnipeg-based agency building elegant websites and running hands-on Notion training.",
+      "Smarter Systems. Stronger Business. A lead-ready website for $995, live in five business days.",
     type: "website",
+    locale: "en_CA",
   },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({
