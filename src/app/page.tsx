@@ -10,19 +10,11 @@ import { HeroBackground } from "@/components/hero-background";
 import { HoverReel } from "@/components/ui/hover-reel";
 import { ScrollExpandHero } from "@/components/ui/scroll-expand-hero";
 import { BookACall } from "@/components/ui/book-a-call";
+import { WorkShowcase } from "@/components/ui/work-showcase";
+import { ledger } from "@/lib/offers";
 import { CountUp } from "@/components/ui/count-up";
 import { BOOKING } from "@/lib/links";
 
-const priceLedger = [
-  { service: "Website design & build", price: "$999", note: "up to 5 pages" },
-  /* "Let's talk" until there is a real number. The $149 on /pricing is the
-     Active CARE plan — site maintenance and content edits — and reusing it here
-     would advertise a marketing retainer at a price that buys something else.
-     Publishing prices is the whole differentiator; a wrong one costs more than
-     a missing one. */
-  { service: "Marketing, monthly", price: "Let's talk", note: "search, email, content" },
-  { service: "Notion training", price: "$500", note: "half-day session" },
-];
 
 const webDeliverables = [
   "Mobile-responsive, on-brand design",
@@ -73,6 +65,8 @@ export default function Home() {
         posterSrc="/hero/inner-poster.webp"
       />
 
+      <WorkShowcase />
+
       {/* Hero — diptych: positioning left, price ledger right.
 
           `relative` so the backdrop pins to this section rather than the
@@ -121,7 +115,7 @@ export default function Home() {
                 What it costs
               </p>
               <dl className="mt-6 divide-y divide-white/10">
-                {priceLedger.map((row, i) => (
+                {ledger.map((row, i) => (
                   // Staggered so the ledger reads top to bottom rather than
                   // arriving as one block — the eye follows the prices down.
                   <Reveal key={row.service} delay={0.25 + i * 0.12} y={12}>
