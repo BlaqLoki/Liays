@@ -1,9 +1,17 @@
 /* Hallmark · genre: editorial · macrostructure: Split Studio · design-system: design.md · designed-as-app */
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { BOOKING } from "@/lib/links";
+import { website, notion, notionSystemBuild } from "@/lib/offers";
+
+/* Derived so the total can never drift from the two numbers it adds together. */
+const pairPrice = `$${(
+  Number(website.price.replace(/[^0-9.]/g, "")) +
+  Number(notion.price.replace(/[^0-9.]/g, ""))
+).toLocaleString("en-CA")}`;
 
 export const metadata: Metadata = {
   title: "Notion Training — Liays Inc",
@@ -14,13 +22,13 @@ const formats = [
   {
     title: "Team Workshop",
     length: "Half-day or full-day",
-    price: "$750",
+    price: notion.price,
     copy: "On-site or remote, for teams of 4–25. We build your real workspace live, together.",
   },
   {
     title: "System build",
     length: "Done for you",
-    price: "$1,200",
+    price: notionSystemBuild.price,
     copy: "You don't want to learn Notion — you want it working. We build it and hand it over.",
   },
   {
@@ -82,16 +90,23 @@ export default function NotionTrainingPage() {
                 Starting at
               </p>
               <p className="font-display mt-4 text-5xl font-bold tabular-nums tracking-tight">
-                $750
+                {notion.price}
               </p>
               <p className="mt-2 text-sm text-white/55">
                 Half-day workshop, custom templates, 14 days of async support
                 after.
               </p>
+              {/* Derived from offers.ts, not typed in. The old line claimed the
+                  pair came to $3,000 — true against a website tier that no
+                  longer exists. The website is $995 now, so that sentence was
+                  overstating the total by more than the website costs. */}
               <p className="mt-6 border-t border-white/10 pt-6 text-xs leading-relaxed text-white/45">
-                Pair it with a website build and the two together are $3,000 —
-                see <span className="text-accent">pricing</span> for the full
-                breakdown.
+                Pair it with the {website.price} five-day website and the two
+                together come to {pairPrice} —{" "}
+                <Link href="/pricing" className="focus-ring text-accent hover:underline">
+                  see pricing
+                </Link>{" "}
+                for the full breakdown.
               </p>
             </div>
           </Reveal>

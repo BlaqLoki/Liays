@@ -11,7 +11,11 @@
  * When that happens, change `foundingSlotsLeft` and nothing else.
  */
 
-export const foundingSlotsLeft = 3;
+/* Annotated `number`, not left to infer. Without it TypeScript narrows this to
+   the literal 3 and then flags every `=== 1` singular/plural check as a
+   comparison that can never be true — which is exactly the check you want to
+   keep working when this drops to 1. */
+export const foundingSlotsLeft: number = 3;
 
 export type Offer = {
   id: string;
@@ -112,24 +116,57 @@ export const notion: Offer = {
   ],
 };
 
-/**
- * Add-on with no published price yet. Deliberately not invented — see the note
- * at the top of this file. Give it a number and it joins the ledger.
- */
+export const notionSystemBuild: Offer = {
+  id: "notion-system",
+  name: "Notion system build",
+  price: "$1,200",
+  unit: "done for you",
+  promise:
+    "You don't want to learn Notion — you want it working. We build the workspace and hand it over.",
+  includes: [
+    "Workspace designed and built for you",
+    "Your existing data migrated in",
+    "One handover walkthrough",
+    "30 days of async support",
+  ],
+};
+
 export const audioAddOn: Offer = {
   id: "audio",
   name: "Jingle or custom background music",
-  price: "Let's talk",
+  price: "$299",
   unit: "add-on",
   promise:
-    "An original short jingle or a background bed for your videos and phone hold.",
-  includes: ["Original composition", "Two revisions", "Cleared for your commercial use"],
+    "An original jingle in four versions, so the same tune works on a reel, a radio spot, your phone hold and the end of a video.",
+  includes: [
+    "Four versions — full, 30-second, 15-second, and an instrumental bed",
+    "Original composition, written for your business",
+    "Cleared for your commercial use, yours to keep",
+  ],
 };
 
-/** The homepage ledger — the three a first-time visitor needs to price. */
+/**
+ * The AI Sprint is deliberately not on the front page.
+ *
+ * It is a different sale: a 5–30 person org with a procurement conversation,
+ * versus a sole trader deciding on a phone call. Running both motions publicly
+ * at once is how a solo studio ends up doing neither well. It sells by referral
+ * from website clients, and lives on /services as the deeper engagement rather
+ * than competing for the top slot.
+ */
+export const aiSprintIsPublic = false;
+
+/**
+ * The homepage ledger: the public stack, in the order someone buys it.
+ *
+ * The AI Sprint is deliberately absent — see aiSprintIsPublic. Putting a $1,500
+ * enterprise-shaped engagement next to a $995 impulse purchase makes the cheap
+ * thing look like the entry tier of something bigger, which is exactly the
+ * hesitation this offer exists to remove.
+ */
 export const ledger = [
-  { service: website.name, price: website.price, note: `then ${website.priceAfter}` },
-  { service: aiSprint.name, price: aiSprint.price, note: "introductory" },
+  { service: "Five-day website", price: website.price, note: `then ${website.priceAfter}` },
+  { service: contentPack.name, price: contentPack.price, note: "launch content, optional" },
   { service: carePlan.name, price: carePlan.price, note: "per month, optional" },
 ];
 
