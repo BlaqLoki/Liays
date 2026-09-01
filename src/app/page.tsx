@@ -15,8 +15,13 @@ import { BOOKING } from "@/lib/links";
 
 const priceLedger = [
   { service: "Website design & build", price: "$999", note: "up to 5 pages" },
+  /* "Let's talk" until there is a real number. The $149 on /pricing is the
+     Active CARE plan — site maintenance and content edits — and reusing it here
+     would advertise a marketing retainer at a price that buys something else.
+     Publishing prices is the whole differentiator; a wrong one costs more than
+     a missing one. */
+  { service: "Marketing, monthly", price: "Let's talk", note: "search, email, content" },
   { service: "Notion training", price: "$500", note: "half-day session" },
-  { service: "Both, paired", price: "Let's talk", note: "site + system" },
 ];
 
 const webDeliverables = [
@@ -61,8 +66,8 @@ export default function Home() {
         title="Endless Possibilities"
         eyebrow="Liays Inc · Winnipeg"
         hint="Scroll"
-        bgImageSrc="/hero/nyc.webp"
-        bgAlt="An aerial view of a city skyline at golden hour"
+        bgImageSrc="/hero/winnipeg.webp"
+        bgAlt="Downtown Winnipeg at golden hour, the Museum for Human Rights and the Esplanade Riel in the foreground"
         videoSrc="/hero/inner.mp4"
         videoWebmSrc="/hero/inner.webm"
         posterSrc="/hero/inner-poster.webp"
@@ -84,14 +89,15 @@ export default function Home() {
               Winnipeg · now booking founding clients
             </p>
             <h1 className="font-display mt-6 text-balance text-5xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
-              We build the site.
+              We build it.
               <br />
-              We teach the <span className="text-accent">system.</span>
+              Then we <span className="text-accent">run it.</span>
             </h1>
             <p className="mt-8 max-w-xl text-lg leading-relaxed text-white/60">
-              Websites for service businesses — restaurants, cleaners, plumbers,
-              real estate agents, non-profits. Paired with hands-on Notion
-              training, so your team actually uses the tools you already pay for.
+              Most studios hand you a website and disappear. Most marketers hand
+              you a strategy and can&apos;t build it. We do both — the site, the
+              search, the email, the systems behind it — for Winnipeg service
+              businesses.
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
               <MagneticButton
