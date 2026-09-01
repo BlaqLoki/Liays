@@ -34,6 +34,29 @@ import Image from "next/image";
  * from an effect — the latter costs a second render on every mount and trips
  * react-hooks/set-state-in-effect.
  */
+/**
+ * Wide enough to be worth the video.
+ *
+ * The hero clip is 668KB — on a 375px phone that was 90% of the entire page
+ * weight, autoplaying, for an expansion effect that barely reads at that size.
+ * A tradesperson checking us on mobile data was paying for the whole thing
+ * before the first sentence. Below the breakpoint the poster stands in: same
+ * image, 62KB, no playback.
+ */
+function useWideEnoughForVideo() {
+  return useSyncExternalStore(
+    (onChange) => {
+      const mq = window.matchMedia("(min-width: 768px)");
+      mq.addEventListener("change", onChange);
+      return () => mq.removeEventListener("change", onChange);
+    },
+    () => window.matchMedia("(min-width: 768px)").matches,
+    // Server render assumes phone, so the HTML a phone receives has no <video>
+    // to start fetching before hydration corrects anything.
+    () => false
+  );
+}
+
 function useReducedMotion() {
   return useSyncExternalStore(
     (onChange) => {
@@ -72,6 +95,10 @@ export function ScrollExpandHero({
   const sectionRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   const reduced = useReducedMotion();
+  const wideEnough = useWideEnoughForVideo();
+  // Reduced motion also gets the still — an autoplaying loop is the thing that
+  // setting exists to stop.
+  const showVideo = wideEnough && !reduced;
 
   useEffect(() => {
     // Reduced motion gets the finished state, and no listeners at all. Nothing
@@ -146,20 +173,30 @@ export function ScrollExpandHero({
               height: `${30 + eased * 62}%`,
             }}
           >
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              poster={posterSrc}
-              aria-hidden="true"
-              tabIndex={-1}
-              className="h-full w-full object-cover"
-            >
-              {videoWebmSrc && <source src={videoWebmSrc} type="video/webm" />}
-              <source src={videoSrc} type="video/mp4" />
-            </video>
+            {showVideo ? (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster={posterSrc}
+                aria-hidden="true"
+                tabIndex={-1}
+                className="h-full w-full object-cover"
+              >
+                {videoWebmSrc && <source src={videoWebmSrc} type="video/webm" />}
+                <source src={videoSrc} type="video/mp4" />
+              </video>
+            ) : (
+              <Image
+                src={posterSrc}
+                alt=""
+                fill
+                sizes="(max-width: 768px) 90vw, 70vw"
+                className="object-cover"
+              />
+            )}
             {/* Lifts as the panel opens, so the clip is clearest when largest. */}
             <div
               className="pointer-events-none absolute inset-0 bg-ink"
