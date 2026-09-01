@@ -22,6 +22,7 @@ const slides: WorkSlide[] = [
     href: "https://www.onuchinchinsnacks.ca",
     image: "/work/onuwas.webp",
     alt: "The Onuwa's Kitchen homepage",
+    hasVideo: true,
   },
   {
     slug: "eventsplit",
@@ -30,6 +31,7 @@ const slides: WorkSlide[] = [
     href: "https://www.eventsplit.ca",
     image: "/work/eventsplit.webp",
     alt: "The EventSplit homepage",
+    hasVideo: true,
   },
   {
     slug: "ezirim",
@@ -38,6 +40,7 @@ const slides: WorkSlide[] = [
     href: "https://www.ezirimfoundation.ca",
     image: "/work/ezirim.webp",
     alt: "The Ezirim Foundation homepage",
+    hasVideo: true,
   },
   {
     slug: "open-1",

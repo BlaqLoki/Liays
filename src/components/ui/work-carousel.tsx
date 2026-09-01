@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { HoverReel } from "@/components/ui/hover-reel";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 
 /**
@@ -24,6 +25,8 @@ export type WorkSlide = {
   href?: string;
   image: string;
   alt: string;
+  /** True when /work/<slug>.webm and .mp4 exist — the card plays on hover. */
+  hasVideo?: boolean;
   /** Marks a slot waiting for a real project, so it can't be mistaken for one. */
   placeholder?: boolean;
 };
@@ -160,18 +163,36 @@ function ArrowButton({
 }
 
 function SlideCard({ slide, isActive }: { slide: WorkSlide; isActive: boolean }) {
+  /*
+   * `group` matters: HoverReel binds its listeners to the nearest .group
+   * ancestor, because the scrim and the title sit above the media as siblings
+   * and would otherwise swallow every pointerenter. Without this class the reel
+   * would mount and never play.
+   *
+   * Only the centre slide has pointer-events, so the neighbours can't trigger a
+   * download just by being on screen.
+   */
   const frame = (
-    <div className="relative aspect-[2/1] overflow-hidden rounded-xl border border-white/12 bg-ink-soft shadow-2xl">
-      <Image
-        src={slide.image}
-        alt={slide.alt}
-        fill
-        sizes="(max-width: 640px) 80vw, 720px"
-        className="object-cover object-top"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 via-40% to-transparent to-75%" />
+    <div className="group relative aspect-[2/1] overflow-hidden rounded-xl border border-white/12 bg-ink-soft shadow-2xl">
+      {slide.hasVideo ? (
+        <HoverReel
+          slug={slide.slug}
+          alt={slide.alt}
+          sizes="(max-width: 640px) 80vw, 720px"
+          className="[&_img]:object-top"
+        />
+      ) : (
+        <Image
+          src={slide.image}
+          alt={slide.alt}
+          fill
+          sizes="(max-width: 640px) 80vw, 720px"
+          className="object-cover object-top"
+        />
+      )}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/45 via-40% to-transparent to-75%" />
 
-      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5">
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5">
         <div>
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.15em] text-white/55">
             {slide.tag}
