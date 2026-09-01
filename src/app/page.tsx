@@ -8,6 +8,8 @@ import { Reveal } from "@/components/ui/reveal";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { HeroBackground } from "@/components/hero-background";
 import { HoverReel } from "@/components/ui/hover-reel";
+import { ScrollExpandHero } from "@/components/ui/scroll-expand-hero";
+import { BookACall } from "@/components/ui/book-a-call";
 import { CountUp } from "@/components/ui/count-up";
 import { BOOKING } from "@/lib/links";
 
@@ -53,6 +55,19 @@ const work = [
 export default function Home() {
   return (
     <>
+      {/* Opening frame. The claim is the whole point of the section; the
+          positioning and the price ledger below still do the explaining. */}
+      <ScrollExpandHero
+        title="Endless Possibilities"
+        eyebrow="Liays Inc · Winnipeg"
+        hint="Scroll"
+        bgImageSrc="/hero/nyc.webp"
+        bgAlt="An aerial view of a city skyline at golden hour"
+        videoSrc="/hero/inner.mp4"
+        videoWebmSrc="/hero/inner.webm"
+        posterSrc="/hero/inner-poster.webp"
+      />
+
       {/* Hero — diptych: positioning left, price ledger right.
 
           `relative` so the backdrop pins to this section rather than the
@@ -269,22 +284,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Closing CTA — left-biased, outlined chip. */}
-      <section className="border-t border-white/10 px-6 py-24 lg:px-10 lg:py-32">
-        <Reveal className="mx-auto max-w-7xl">
-          <div className="max-w-3xl">
-            <h2 className="font-display text-balance text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
-              Tell us what the site needs to do. We&apos;ll quote it in a day.
-            </h2>
-            <div className="mt-10">
-              <MagneticButton href={BOOKING.projectCall} external>
-                Start a project
-                <ArrowUpRight size={16} />
-              </MagneticButton>
-            </div>
-          </div>
-        </Reveal>
-      </section>
+      {/* Closing CTA. Replaced the plain text block rather than adding a
+          second one below it — two booking CTAs on one page compete, and the
+          reader has already had the offer explained by the time they arrive. */}
+      <BookACall
+        eyebrow="Book a call"
+        title="Tell us what the site needs to do. We'll quote it in a day."
+        description="A free 20-minute consult. We'll look at what you have, tell you what we'd change, and give you a number — whether or not you hire us."
+        primaryHref={BOOKING.projectCall}
+        primaryLabel="Start a project"
+        secondaryHref="/pricing"
+        secondaryLabel="See what it costs"
+        primaryImage="/hero/placeholder-a.webp"
+        primaryAlt="Placeholder — replace with studio or client work"
+        secondaryImage="/hero/placeholder-b.webp"
+        secondaryAlt="Placeholder — replace with studio or client work"
+      />
     </>
   );
 }
