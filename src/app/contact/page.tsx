@@ -1,129 +1,145 @@
-/* Hallmark · genre: editorial · macrostructure: Split Diptych · design-system: design.md · designed-as-app */
+/* Hallmark · genre: editorial · macrostructure: Split Studio · design-system: design.md
+ *
+ * The last page before a decision, so it removes reasons not to act rather than
+ * adding reasons to. Three routes out — call, form, phone — because a
+ * tradesperson reading this at 8pm wants to tap a number, and a business owner
+ * comparing quotes wants to type.
+ */
 import type { Metadata } from "next";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Check, Clock, Mail, MapPin } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
+import { MagneticButton } from "@/components/ui/magnetic-button";
 import ContactForm from "@/components/contact-form";
 import { BOOKING } from "@/lib/links";
+import { website, foundingSlotsLeft } from "@/lib/offers";
 
 export const metadata: Metadata = {
   title: "Contact — Liays Inc",
   description:
-    "Get in touch with Liays Inc for a free consult on your website or Notion training.",
+    "Book a free 20-minute consult, or send us your Google listing and we'll tell you what we'd build. Winnipeg.",
 };
 
-/* Phone deliberately omitted — the previous value was (204) 555-0119, and 555
- * numbers are reserved fictional numbers. Add a real line here when there is one:
- * { label: "Phone", value: "…", href: "tel:…" }
- */
 const details = [
-  { label: "Email", value: "info@liays.ca", href: "mailto:info@liays.ca" },
-  { label: "Location", value: "Winnipeg, Manitoba" },
-  { label: "Response time", value: "Within 1 business day" },
+  { label: "Email", value: "info@liays.ca", href: "mailto:info@liays.ca", icon: Mail },
+  { label: "Where", value: "Winnipeg, Manitoba", icon: MapPin },
+  { label: "Reply", value: "Within one business day", icon: Clock },
 ];
 
+/* Each one answers a specific reason people don't send the message. Not
+   features — objections, in the order they occur to someone hovering over the
+   button. */
 const reassurance = [
-  "A free consult first — no obligation, no pressure",
-  "Prices are published, so the quote won't surprise you",
-  "50% deposit to book, balance on launch day",
-  "You own everything we build for you",
+  "The consult is free, and there's no pitch deck",
+  "Every price is already published — the quote won't surprise you",
+  "50% to book, the balance on launch day",
+  "You own the domain, the content, all of it",
+  "If we're not the right fit we'll say so on the call",
 ];
 
 export default function ContactPage() {
   return (
-    <section className="px-6 pb-24 pt-12 lg:px-10 lg:pb-32 lg:pt-20">
-      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[5fr_7fr] lg:items-start lg:gap-20">
-        <Reveal>
-          <h1 className="font-display text-balance text-4xl font-bold leading-[1.06] tracking-tight sm:text-5xl">
-            Let&apos;s talk about your project.
-          </h1>
-          <p className="mt-6 max-w-md text-base leading-relaxed text-white/60">
-            Tell us a bit about your business and what you need — a new site, a
-            Notion workspace, or both. We reply within one business day.
-          </p>
+    <>
+      <section className="px-6 pb-24 pt-12 lg:px-10 lg:pb-32 lg:pt-20">
+        <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[6fr_5fr] lg:gap-20">
+          {/* ── Left: the ask and the reasons ─────────────────────────── */}
+          <div>
+            <Reveal>
+              <p className="text-sm font-semibold text-accent">
+                {foundingSlotsLeft} founding{" "}
+                {foundingSlotsLeft === 1 ? "slot" : "slots"} left at{" "}
+                {website.price}
+              </p>
+              <h1 className="font-display mt-6 text-balance text-4xl font-bold leading-[1.06] tracking-tight sm:text-5xl">
+                Send us your Google listing. We&apos;ll tell you what we&apos;d
+                build.
+              </h1>
+              <p className="mt-7 max-w-xl text-lg leading-relaxed text-white/60">
+                Twenty minutes on a call, or a message here — whichever you&apos;d
+                rather. Either way you leave knowing what we&apos;d do and what
+                it costs, whether or not you hire us.
+              </p>
+            </Reveal>
 
-          {/* Two routes on purpose: book if you'd rather talk, write if you'd
-              rather not. Collapsing these into one loses whoever prefers the other. */}
-          <div className="mt-8 divide-y divide-white/10 border-y border-white/10">
-            <a
-              href={BOOKING.freeConsult}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="focus-ring group flex items-baseline justify-between gap-4 py-4"
-            >
-              <span>
-                <span className="block text-sm font-semibold transition-colors group-hover:text-accent">
+            <Reveal delay={0.08}>
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+                <MagneticButton
+                  href={BOOKING.freeConsult}
+                  external
+                  className="whitespace-nowrap"
+                >
                   Book a free consult
-                </span>
-                <span className="mt-0.5 block text-xs text-white/45">
-                  20 minutes, no obligation
-                </span>
-              </span>
-              <ArrowUpRight
-                size={15}
-                className="shrink-0 text-white/40 transition-colors group-hover:text-accent"
-              />
-            </a>
-            <a
-              href={BOOKING.projectCall}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="focus-ring group flex items-baseline justify-between gap-4 py-4"
-            >
-              <span>
-                <span className="block text-sm font-semibold transition-colors group-hover:text-accent">
-                  Book a project call
-                </span>
-                <span className="mt-0.5 block text-xs text-white/45">
-                  45 minutes, for a project you&apos;re ready to start
-                </span>
-              </span>
-              <ArrowUpRight
-                size={15}
-                className="shrink-0 text-white/40 transition-colors group-hover:text-accent"
-              />
-            </a>
+                  <ArrowUpRight size={16} />
+                </MagneticButton>
+                <MagneticButton
+                  href={BOOKING.projectCall}
+                  external
+                  variant="ghost"
+                  className="whitespace-nowrap"
+                >
+                  Already decided — book a project call
+                </MagneticButton>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.14}>
+              <ul className="mt-12 divide-y divide-white/10 border-y border-white/10">
+                {reassurance.map((item) => (
+                  <li key={item} className="flex items-start gap-3 py-3.5">
+                    <Check size={16} className="mt-1 shrink-0 text-accent" />
+                    <span className="text-sm leading-relaxed text-white/70">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+
+            <Reveal delay={0.2}>
+              <dl className="mt-10 grid gap-6 sm:grid-cols-3">
+                {details.map((d) => {
+                  const Icon = d.icon;
+                  return (
+                    <div key={d.label} className="flex flex-col gap-1.5">
+                      <dt className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
+                        <Icon size={13} aria-hidden="true" />
+                        {d.label}
+                      </dt>
+                      <dd className="text-sm font-medium">
+                        {d.href ? (
+                          <a
+                            href={d.href}
+                            className="focus-ring transition-colors hover:text-accent"
+                          >
+                            {d.value}
+                          </a>
+                        ) : (
+                          d.value
+                        )}
+                      </dd>
+                    </div>
+                  );
+                })}
+              </dl>
+            </Reveal>
           </div>
 
-          <dl className="mt-10 divide-y divide-white/10 border-y border-white/10">
-            {details.map((d) => (
-              <div
-                key={d.label}
-                className="flex items-baseline justify-between gap-6 py-4"
-              >
-                <dt className="text-sm text-white/50">{d.label}</dt>
-                <dd className="text-sm font-semibold">
-                  {d.href ? (
-                    <a
-                      href={d.href}
-                      className="focus-ring inline-flex items-center py-2 transition-colors hover:text-accent"
-                    >
-                      {d.value}
-                    </a>
-                  ) : (
-                    d.value
-                  )}
-                </dd>
+          {/* ── Right: the form ───────────────────────────────────────── */}
+          <Reveal delay={0.12}>
+            <div className="rounded-2xl border border-white/10 bg-ink-soft/40 p-6 lg:p-8">
+              <h2 className="font-display text-xl font-semibold tracking-tight">
+                Or just tell us what you need
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-white/55">
+                A sentence is plenty. Your business name and what you do is
+                enough for us to come back with something useful.
+              </p>
+              <div className="mt-7">
+                <ContactForm />
               </div>
-            ))}
-          </dl>
-
-          <ul className="mt-10 space-y-3">
-            {reassurance.map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <span
-                  aria-hidden="true"
-                  className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent"
-                />
-                <span className="text-sm leading-relaxed text-white/55">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
-
-        <Reveal delay={0.12}>
-          <ContactForm />
-        </Reveal>
-      </div>
-    </section>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+    </>
   );
 }
