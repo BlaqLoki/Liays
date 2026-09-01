@@ -287,6 +287,11 @@ export default function Home() {
       {/* Closing CTA. Replaced the plain text block rather than adding a
           second one below it — two booking CTAs on one page compete, and the
           reader has already had the offer explained by the time they arrive. */}
+      {/* Alt text describes what is on screen. It previously read "Placeholder
+          — replace with studio or client work", which a screen reader announces
+          verbatim to a real visitor and which shows as visible text if the image
+          fails. Swap the images for client work when there is some; the alt
+          changes with them. */}
       <BookACall
         eyebrow="Book a call"
         title={`${foundingSlotsLeft} founding slots at ${website.price}. Then it's ${website.priceAfter}.`}
@@ -296,9 +301,9 @@ export default function Home() {
         secondaryHref="/pricing"
         secondaryLabel="See what it costs"
         primaryImage="/hero/placeholder-a.webp"
-        primaryAlt="Placeholder — replace with studio or client work"
+        primaryAlt="Downtown Winnipeg from the air at golden hour"
         secondaryImage="/hero/placeholder-b.webp"
-        secondaryAlt="Placeholder — replace with studio or client work"
+        secondaryAlt="A Winnipeg street scene"
       />
     </>
   );

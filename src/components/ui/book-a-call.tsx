@@ -87,8 +87,32 @@ export function BookACall({
             than absolute positioning, so the pair still reflows on a phone
             instead of overlapping into an unreadable stack. */}
         <Reveal delay={0.12}>
-          <div className="grid grid-cols-5 grid-rows-6 gap-4">
-            <div className="relative col-span-4 row-span-5 overflow-hidden rounded-xl border border-white/10 bg-ink-soft">
+          {/*
+            aspect-[5/6] is what makes this work, and it is not decorative.
+
+            The grid declares six rows, but rows size to their content and both
+            children are `relative` boxes holding `fill` images — which are
+            absolutely positioned and therefore contribute no height at all. So
+            every row collapsed to a few pixels and the collage rendered as two
+            horizontal smears. Giving the container an aspect ratio gives the
+            rows something to divide, and 5/6 matches the 5×6 track count so
+            each cell comes out roughly square.
+          */}
+          <div className="grid aspect-[5/6] grid-cols-5 grid-rows-6 gap-4">
+            {/*
+              col-start-1 row-start-1 is required, not tidiness.
+
+              The secondary image below is explicitly placed at rows 4–6. This
+              one was auto-placed, so the algorithm tried to find a free 4×5
+              block, couldn't fit one around the explicit cell, and pushed it
+              into implicit rows 7–11 — which have no height. Computed
+              grid-template-rows read "82px ×6, then 0px ×5", and the image
+              rendered as a 64px smear made entirely of gaps.
+
+              Placing both explicitly lets them overlap on purpose, which is
+              what a collage is.
+            */}
+            <div className="relative col-span-4 col-start-1 row-span-5 row-start-1 overflow-hidden rounded-xl border border-white/10 bg-ink-soft">
               <Image
                 src={primaryImage}
                 alt={primaryAlt}
