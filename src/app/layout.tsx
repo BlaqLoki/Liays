@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Manrope } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
+import { SiteChrome } from "@/components/site-chrome";
 import Footer from "@/components/footer";
 import { SkipLink } from "@/components/ui/skip-link";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
@@ -53,14 +54,20 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${manrope.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-ink text-[var(--color-fg-on-ink)] grain">
-        <SkipLink />
-        <ScrollProgress />
-        <Navbar />
+        {/* Gated so /demo routes render as the client's own site, not ours
+            wearing their name. Server children pass straight through. */}
+        <SiteChrome>
+          <SkipLink />
+          <ScrollProgress />
+          <Navbar />
+        </SiteChrome>
         <main id="main-content" className="flex-1 pb-20 lg:pb-0">
           {children}
         </main>
-        <Footer />
-        <MobileCtaBar />
+        <SiteChrome>
+          <Footer />
+          <MobileCtaBar />
+        </SiteChrome>
       </body>
     </html>
   );
