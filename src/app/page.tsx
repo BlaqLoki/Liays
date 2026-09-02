@@ -11,7 +11,7 @@ import { HoverReel } from "@/components/ui/hover-reel";
 import { ScrollExpandHero } from "@/components/ui/scroll-expand-hero";
 import { BookACall } from "@/components/ui/book-a-call";
 import { WorkShowcase } from "@/components/ui/work-showcase";
-import { PriceCard } from "@/components/ui/price-card";
+import { PricingTable } from "@/components/ui/pricing-table";
 import { tagline, website, foundingSlotsLeft } from "@/lib/offers";
 import { BOOKING } from "@/lib/links";
 
@@ -66,58 +66,53 @@ export default function Home() {
 
       <WorkShowcase />
 
-      {/* Hero — diptych: positioning left, price ledger right.
+      {/* Positioning, then the table.
 
-          `relative` so the backdrop pins to this section rather than the
-          viewport. Deliberately NOT `isolate`: adding it blanked the entire
-          hero in Chrome — headline, ledger, buttons, all of it — and it did so
-          with the backdrop removed too, so the stacking context alone was
-          enough. `relative` is all the positioning needs; the isolate bought
-          nothing and cost the whole section. */}
-      <section className="relative px-6 pb-20 pt-16 lg:px-10 lg:pb-28 lg:pt-24">
+          Was a diptych with the prices crammed into a 5fr column beside the
+          headline. Three columns don't fit there, and the offer is the thing
+          this page exists to sell — so the claim goes across the top and the
+          pricing gets the full width underneath it.
+
+          `relative` for the backdrop. Deliberately NOT `isolate`: adding it
+          blanked this entire section in Chrome, backdrop removed or not, so the
+          stacking context alone was enough to do it. */}
+      <section className="relative px-6 pb-24 pt-16 lg:px-10 lg:pb-32 lg:pt-24">
         <HeroBackground />
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[7fr_5fr] lg:items-end lg:gap-20">
-          <Reveal>
-            <p className="text-sm font-semibold text-accent">
-              Winnipeg · {foundingSlotsLeft} founding{" "}
-              {foundingSlotsLeft === 1 ? "slot" : "slots"} left at {website.price}
-            </p>
-            <h1 className="font-display mt-6 text-balance text-5xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
-              We build it.
-              <br />
-              Then we <span className="text-accent">run it.</span>
-            </h1>
-            <p className="mt-8 max-w-xl text-lg leading-relaxed text-white/60">
-              Most studios hand you a website and disappear. Most marketers hand
-              you a strategy and can&apos;t build it. We do both — the site, the
-              search, the email, the systems behind it — for Winnipeg service
-              businesses.
-            </p>
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-              <MagneticButton
-                href={BOOKING.freeConsult}
-                external
-                className="whitespace-nowrap"
-              >
-                Book a free consult
-                <ArrowUpRight size={16} />
-              </MagneticButton>
-              <MagneticButton href="/audit" variant="ghost" className="whitespace-nowrap">
-                Check your site&apos;s performance for free
-              </MagneticButton>
-            </div>
-          </Reveal>
 
-          {/* Proof half — the offer as a price card.
+        <Reveal className="mx-auto max-w-3xl text-center">
+          <p className="text-sm font-semibold text-accent">
+            Winnipeg · {foundingSlotsLeft} founding{" "}
+            {foundingSlotsLeft === 1 ? "slot" : "slots"} left at {website.price}
+          </p>
+          <h1 className="font-display mt-6 text-balance text-5xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
+            We build it. Then we <span className="text-accent">run it.</span>
+          </h1>
+          <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/60">
+            Most studios hand you a website and disappear. Most marketers hand
+            you a strategy and can&apos;t build it. We do both — the site, the
+            search, the email, the systems behind it — for Winnipeg service
+            businesses.
+          </p>
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <MagneticButton href={BOOKING.freeConsult} external className="whitespace-nowrap">
+              Book a free consult
+              <ArrowUpRight size={16} />
+            </MagneticButton>
+            <MagneticButton href="/audit" variant="ghost" className="whitespace-nowrap">
+              Check your site&apos;s performance for free
+            </MagneticButton>
+          </div>
+        </Reveal>
 
-              Was a three-row ledger of small numbers. It listed what things
-              cost without ever making one of them the decision, so the eye had
-              nothing to land on. One card, one price, set larger than anything
-              else on the screen. The add-ons stay, quieter, underneath. */}
-          <Reveal delay={0.12}>
-            <PriceCard />
-          </Reveal>
+        <div className="mt-16 lg:mt-20">
+          <PricingTable />
         </div>
+
+        <p className="mx-auto mt-10 max-w-xl text-center text-xs leading-relaxed text-white/40">
+          Comparable studio work in this market typically runs $2,500–$5,000.
+          Our pricing is on the site because you shouldn&apos;t have to book a
+          call to find out.
+        </p>
       </section>
 
       {/* Craft 01 — websites. Text left, proof right. */}
