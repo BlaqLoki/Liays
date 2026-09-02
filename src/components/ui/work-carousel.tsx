@@ -78,7 +78,15 @@ export function WorkCarousel({
       aria-label="Sites we've built"
       className={`focus-ring relative ${className}`}
     >
-      <div className="relative h-[clamp(230px,42vw,460px)] [perspective:1400px]">
+      {/*
+        overflow-x-clip, because the neighbours are positioned outside this box
+        on purpose. Each sits at translateX(±46%) of its own width, so on a
+        375px phone the right-hand slide reached x=559 and dragged the document
+        scrollWidth with it — a page a thumb could pull sideways off its own
+        layout. Clip, not hidden: hidden on a horizontal axis makes the browser
+        treat the vertical one as auto, which adds a scrollbar to the track.
+      */}
+      <div className="relative h-[clamp(230px,42vw,460px)] overflow-x-clip [perspective:1400px]">
         {slides.map((slide, i) => {
           const offset = offsetOf(i);
           const distance = Math.abs(offset);

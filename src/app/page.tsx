@@ -11,8 +11,8 @@ import { HoverReel } from "@/components/ui/hover-reel";
 import { ScrollExpandHero } from "@/components/ui/scroll-expand-hero";
 import { BookACall } from "@/components/ui/book-a-call";
 import { WorkShowcase } from "@/components/ui/work-showcase";
-import { ledger, tagline, website, foundingSlotsLeft } from "@/lib/offers";
-import { CountUp } from "@/components/ui/count-up";
+import { PriceCard } from "@/components/ui/price-card";
+import { tagline, website, foundingSlotsLeft } from "@/lib/offers";
 import { BOOKING } from "@/lib/links";
 
 
@@ -108,35 +108,14 @@ export default function Home() {
             </div>
           </Reveal>
 
-          {/* Proof half — the price ledger. Transparency is the differentiator. */}
+          {/* Proof half — the offer as a price card.
+
+              Was a three-row ledger of small numbers. It listed what things
+              cost without ever making one of them the decision, so the eye had
+              nothing to land on. One card, one price, set larger than anything
+              else on the screen. The add-ons stay, quieter, underneath. */}
           <Reveal delay={0.12}>
-            <div className="border-t border-white/15 pt-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/45">
-                What it costs
-              </p>
-              <dl className="mt-6 divide-y divide-white/10">
-                {ledger.map((row, i) => (
-                  // Staggered so the ledger reads top to bottom rather than
-                  // arriving as one block — the eye follows the prices down.
-                  <Reveal key={row.service} delay={0.25 + i * 0.12} y={12}>
-                    <div className="flex items-baseline justify-between gap-6 py-4">
-                      <dt>
-                        <span className="block text-sm font-semibold">{row.service}</span>
-                        <span className="mt-0.5 block text-xs text-white/45">{row.note}</span>
-                      </dt>
-                      <dd className="font-display shrink-0 text-xl font-bold tracking-tight">
-                        <CountUp value={row.price} />
-                      </dd>
-                    </div>
-                  </Reveal>
-                ))}
-              </dl>
-              <p className="mt-6 text-xs leading-relaxed text-white/45">
-                Comparable studio work in this market typically runs $2,500–$5,000.
-                Our pricing is on the site because you shouldn&apos;t have to book a
-                call to find out.
-              </p>
-            </div>
+            <PriceCard />
           </Reveal>
         </div>
       </section>
